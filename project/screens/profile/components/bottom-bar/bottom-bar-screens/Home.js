@@ -3,8 +3,8 @@ import {Text, View} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import ForYou from './home-tab-screens/ForYou';
 import Following from './home-tab-screens/Following';
-import {colors} from '../../../../themes/Colors';
-import {inter} from '../../../../utils/Fonts';
+import {colors} from '../../../../../themes/Colors';
+import {inter} from '../../../../../utils/Fonts';
 
 const Tab = createMaterialTopTabNavigator();
 

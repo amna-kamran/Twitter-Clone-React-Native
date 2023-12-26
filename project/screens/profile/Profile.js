@@ -5,8 +5,10 @@ import IconE from 'react-native-vector-icons/Entypo';
 import IconI from 'react-native-vector-icons/Ionicons';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 import {SpacesH, SpacesW, height, width} from '../../utils/Spaces';
-import ProfileTabs from './components/ProfileTabs';
+import ProfileTabs from './components/tabs/ProfileTabs';
 import {inter} from '../../utils/Fonts';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {signOut} from '../../provider/AuthProvider';
 
 const Profile = ({navigation}) => {
   return (
@@ -22,8 +24,11 @@ const Profile = ({navigation}) => {
       <View style={styles.header}>
         <View style={styles.profileheader}>
           <View style={styles.profilePicture} />
+
           <View style={styles.editButton}>
-            <Text style={styles.editButtonText}>Edit Profile</Text>
+            <TouchableOpacity onPress={() => signOut()}>
+              <Text style={styles.editButtonText}>Edit Profile</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <SpacesH height={height.h10} />

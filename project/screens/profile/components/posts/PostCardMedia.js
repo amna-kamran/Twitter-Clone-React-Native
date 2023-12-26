@@ -5,9 +5,9 @@ import IconF from 'react-native-vector-icons/Feather';
 import IconA from 'react-native-vector-icons/AntDesign';
 import {colors} from '../../../../themes/Colors';
 import {inter} from '../../../../utils/Fonts';
-import {SpacesH, SpacesW} from '../../../../utils/Spaces';
+import {SpacesH, SpacesW, height, width} from '../../../../utils/Spaces';
 
-const PostCard = () => {
+const PostCardMedia = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => console.log('pressed')}>
@@ -24,11 +24,13 @@ const PostCard = () => {
           <IconE name="dots-three-vertical" size={16} color={'grey'} />
         </View>
         <Text style={styles.tweet}>My first tweet</Text>
+        <SpacesH height={height.h10} />
+        <View style={styles.image} />
         <SpacesH height={30} />
         <View style={styles.icons}>
           <View style={[styles.iconGroup, {width: 80}]}>
             <IconF name="message-circle" size={17} color={'grey'} />
-            <SpacesW width={5} />
+            <SpacesW width={width.w10} />
             <Text style={styles.iconText}>230k</Text>
           </View>
 
@@ -62,7 +64,7 @@ const PostCard = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'black',
-    height: 150,
+    flex: 1,
     padding: 10,
     flexDirection: 'row',
   },
@@ -105,6 +107,12 @@ const styles = StyleSheet.create({
     color: colors.grey,
     fontSize: 13,
   },
+  image: {
+    height: 300,
+    width: 300,
+    backgroundColor: colors.grey,
+    borderRadius: 20,
+  },
 });
 
-export default PostCard;
+export default PostCardMedia;

@@ -8,6 +8,7 @@ export const SpacesH = ({height}) => {
 };
 
 export const width = {
+  w5: 5,
   w10: 10,
   w15: 15,
   w20: 20,

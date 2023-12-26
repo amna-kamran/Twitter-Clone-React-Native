@@ -5,7 +5,7 @@ import IconE from 'react-native-vector-icons/Entypo';
 import IconI from 'react-native-vector-icons/Ionicons';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 import {SpacesH, SpacesW, height, width} from '../../utils/Spaces';
-import ProfileTabs from './components/ProfileTabs';
+import ProfileTabs from './components/tabs/ProfileTabs';
 import {inter} from '../../utils/Fonts';
 
 const Profile = ({navigation}) => {

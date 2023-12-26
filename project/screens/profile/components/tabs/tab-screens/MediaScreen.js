@@ -1,11 +1,9 @@
 import {View, Text, StyleSheet} from 'react-native';
 import {colors} from '../../../../../themes/Colors';
+import PostCard from '../../posts/PostCard';
+import PostCardMedia from '../../posts/PostCardMedia';
 const MediaScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Media</Text>
-    </View>
-  );
+  return <PostCardMedia />;
 };
 const styles = StyleSheet.create({
   container: {

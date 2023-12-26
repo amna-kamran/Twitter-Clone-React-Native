@@ -1,15 +1,19 @@
 import React from 'react';
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet, Touchable, TouchableOpacity} from 'react-native';
 import {colors} from '../../../../../themes/Colors';
 import PostCard from '../../posts/PostCard';
 
-const PostScreen = () => {
+const PostScreen = ({navigation}) => {
   // Dummy data array for demonstration
   const postData = [1, 2, 3, 4, 5, 6, 7, 8];
 
   // Render function for FlatList
   const renderPostCard = ({item}) => {
-    return <PostCard />;
+    return (
+      <TouchableOpacity onPress={() => navigation.navigate('post')}>
+        <PostCard />
+      </TouchableOpacity>
+    );
   };
 
   return (

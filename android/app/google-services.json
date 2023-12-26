@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "873140879212",
+    "project_id": "twitter-clone-react-nati-92d57",
+    "storage_bucket": "twitter-clone-react-nati-92d57.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873140879212:android:c6eeabbab311a367603d49",
+        "android_client_info": {
+          "package_name": "com.twitter_clone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8Hu48oqDvdcGwHFgI_AJnxgCH6WfZjEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,31 +1,25 @@
 import React from 'react';
 import {
   View,
-  Image,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
 } from 'react-native';
 import {useState} from 'react';
-
-const onNextPressed = () => {
-  console.log('Signing in');
-};
+import {emailPasswordSignin} from '../../provider/AuthProvider';
 
 const SignUpScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 
+  const onNextPressed = () => {
+    emailPasswordSignin(email, password);
+  };
   return (
     <View style={styles.main}>
-      <View style={styles.second}>
-        <Image
-          source={require('C:UsersDELLDocumentsReactNativeSemesterProjectlogo-white.png')}
-          style={styles.logo}
-        />
-      </View>
+      <View style={styles.second}></View>
       <Text style={styles.heading1}>Create your account</Text>
       <View style={styles.inputContainer}>
         <TextInput
@@ -37,18 +31,18 @@ const SignUpScreen = () => {
         />
         <TextInput
           style={styles.inputField}
+          placeholder="Email"
+          placeholderTextColor="#676767"
+          onChangeText={text => setEmail(text)}
+          value={email}
+        />
+        <TextInput
+          style={styles.inputField}
           placeholder="Password"
           placeholderTextColor="#676767"
           onChangeText={text => setPassword(text)}
           value={password}
           secureTextEntry={true}
-        />
-        <TextInput
-          style={styles.inputField}
-          placeholder="Email"
-          placeholderTextColor="#676767"
-          onChangeText={text => setEmail(text)}
-          value={email}
         />
       </View>
       <TouchableOpacity style={styles.next} onPress={onNextPressed}>

@@ -1,32 +1,22 @@
 import React from 'react';
 import {
   View,
-  Image,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
 } from 'react-native';
 import {useState} from 'react';
+import {loginEmailPass} from '../../provider/AuthProvider';
 
-const onCreateAccountPressed = () => {
-  console.log('Created account');
-};
-
-const onSignInPressed = () => {
-  console.log('Taking to Sign In');
-};
-
-const SignInScreen = () => {
+const SignInScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  const onSignInPressed = () => {
+    loginEmailPass(username, password);
+  };
   return (
     <View style={styles.main}>
-      <Image
-        source={require('C:UsersDELLDocumentsReactNativeSemesterProjectlogo-white.png')}
-        style={styles.logo}
-      />
       <Text style={styles.heading1}>See what’s happening in</Text>
       <Text style={styles.heading2}>the world right now.</Text>
       <View style={styles.inputContainer}>
@@ -49,7 +39,7 @@ const SignInScreen = () => {
       <Text style={styles.or}>or</Text>
       <TouchableOpacity
         style={styles.createAccount}
-        onPress={onCreateAccountPressed}>
+        onPress={() => navigation.navigate('signup')}>
         <Text style={styles.buttonText}>Create account</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.signIn} onPress={onSignInPressed}>

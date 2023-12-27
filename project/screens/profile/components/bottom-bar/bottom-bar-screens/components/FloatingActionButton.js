@@ -1,11 +1,13 @@
 import React from 'react';
 import {View, TouchableOpacity, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons'; // You need to install this package
+import Icon from 'react-native-vector-icons/Ionicons'; // Ensure this package is installed
 import {colors} from '../../../../../../themes/Colors';
 
-const FloatingActionButton = ({onPress}) => {
+const FloatingActionButton = ({onPress, top, bottom, right, left}) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.fab}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.fab, {top, bottom, right, left}]}>
       <Icon name="add" size={30} color="#FFF" />
     </TouchableOpacity>
   );
@@ -18,8 +20,6 @@ const styles = StyleSheet.create({
     height: 60,
     alignItems: 'center',
     justifyContent: 'center',
-    right: 20,
-    bottom: 80,
     backgroundColor: colors.accentColor,
     borderRadius: 30,
     elevation: 8,

@@ -6,8 +6,12 @@ import IconA from 'react-native-vector-icons/AntDesign';
 import {colors} from '../../../../themes/Colors';
 import {inter} from '../../../../utils/Fonts';
 import {SpacesH, SpacesW} from '../../../../utils/Spaces';
+import {useAuth, useUserProfile} from '../../../../services/user/User';
 
 const PostCard = () => {
+  const user = useAuth();
+  const userProfile = useUserProfile(user ? user.uid : null);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => console.log('pressed')}>
@@ -16,9 +20,15 @@ const PostCard = () => {
 
       <View style={styles.textBox}>
         <View style={styles.nameContainer}>
-          <Text style={styles.name}>Amna Kamran</Text>
-          <SpacesW width={10} />
-          <Text style={styles.username}>@amnakamran</Text>
+          {userProfile ? (
+            <>
+              <Text style={styles.name}>{userProfile.username}</Text>
+              <SpacesW width={10} />
+              <Text style={styles.username}>@{userProfile.username}</Text>
+            </>
+          ) : (
+            <Text style={styles.loadingText}>Loading...</Text>
+          )}
           <Text style={styles.day}>. 2d</Text>
           <SpacesW width={10} />
           <IconE name="dots-three-vertical" size={16} color={'grey'} />
@@ -70,7 +80,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     height: 55,
     width: 55,
-    borderRadius: 37.5,
+    borderRadius: 27.5,
   },
   textBox: {
     padding: 10,
@@ -104,6 +114,10 @@ const styles = StyleSheet.create({
   iconText: {
     color: colors.grey,
     fontSize: 13,
+  },
+  loadingText: {
+    color: colors.grey,
+    fontFamily: inter.medium,
   },
 });
 

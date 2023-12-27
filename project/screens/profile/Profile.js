@@ -1,19 +1,21 @@
-import {View, StyleSheet, Text} from 'react-native';
-import {colors} from '../../themes/Colors';
+import React from 'react';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import IconF from 'react-native-vector-icons/Feather';
 import IconE from 'react-native-vector-icons/Entypo';
 import IconI from 'react-native-vector-icons/Ionicons';
 import IconFA from 'react-native-vector-icons/FontAwesome';
+import {colors} from '../../themes/Colors';
 import {SpacesH, SpacesW, height, width} from '../../utils/Spaces';
 import ProfileTabs from './components/tabs/ProfileTabs';
 import {inter} from '../../utils/Fonts';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {signOut} from '../../services/AuthProvider';
 import {useAuth, useUserProfile} from '../../services/user/User';
-import {UserModel} from '../../models/UserModel';
+import FloatingActionButton from './components/bottom-bar/bottom-bar-screens/components/FloatingActionButton';
+
 const Profile = ({navigation}) => {
   const user = useAuth();
   const userProfile = useUserProfile(user ? user.uid : null);
+
   return (
     <View style={styles.background}>
       <View style={styles.topBar}>
@@ -29,7 +31,6 @@ const Profile = ({navigation}) => {
       <View style={styles.header}>
         <View style={styles.profileheader}>
           <View style={styles.profilePicture} />
-
           <View style={styles.editButton}>
             <TouchableOpacity onPress={() => signOut()}>
               <Text style={styles.editButtonText}>Edit Profile</Text>
@@ -37,8 +38,16 @@ const Profile = ({navigation}) => {
           </View>
         </View>
         <SpacesH height={height.h10} />
-        <Text style={styles.name}>{userProfile.username}</Text>
-        <Text style={styles.username}>@{userProfile.username}</Text>
+
+        {userProfile ? (
+          <>
+            <Text style={styles.name}>{userProfile.username}</Text>
+            <Text style={styles.username}>@{userProfile.username}</Text>
+          </>
+        ) : (
+          <Text style={styles.loadingText}>Loading profile...</Text>
+        )}
+
         <SpacesH height={height.h25} />
         <View style={styles.date}>
           <IconFA name="calendar" size={14} color="grey" />
@@ -56,6 +65,7 @@ const Profile = ({navigation}) => {
       </View>
       <SpacesH height={height.h10} />
       <ProfileTabs />
+      <FloatingActionButton bottom={20} right={20} />
     </View>
   );
 };
@@ -113,6 +123,10 @@ const styles = StyleSheet.create({
     color: 'grey',
     fontSize: 15,
     fontFamily: inter.regular,
+  },
+  loadingText: {
+    fontSize: 16,
+    color: 'grey',
   },
   date: {
     flexDirection: 'row',

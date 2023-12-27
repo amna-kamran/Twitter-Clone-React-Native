@@ -108,7 +108,11 @@ const Dashboard = () => {
           })}
         />
       </Tab.Navigator>
-      {isMessage ? <FloatingMessageButton /> : <FloatingActionButton />}
+      {isMessage ? (
+        <FloatingMessageButton />
+      ) : (
+        <FloatingActionButton bottom={80} right={20} />
+      )}
     </>
   );
 };

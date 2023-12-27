@@ -24,6 +24,7 @@ export const useUserProfile = userId => {
           .get();
 
         if (!userDoc.empty) {
+          const userData = userDoc.docs[0].data();
           setProfile(userData);
         } else {
           console.log(

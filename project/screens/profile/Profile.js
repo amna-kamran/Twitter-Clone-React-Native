@@ -11,11 +11,16 @@ import {inter} from '../../utils/Fonts';
 import {signOut} from '../../services/AuthProvider';
 import {useAuth, useUserProfile} from '../../services/user/User';
 import FloatingActionButton from './components/bottom-bar/bottom-bar-screens/components/FloatingActionButton';
-
+import {useState} from 'react';
+import OverlayMenu from './components/OverlayMenu';
 const Profile = ({navigation}) => {
   const user = useAuth();
   const userProfile = useUserProfile(user ? user.uid : null);
-
+  console.log(userProfile);
+  const [overlayVisible, setOverlayVisible] = useState(false);
+  const toggleOverlay = () => {
+    setOverlayVisible(!overlayVisible);
+  };
   return (
     <View style={styles.background}>
       <View style={styles.topBar}>
@@ -65,7 +70,8 @@ const Profile = ({navigation}) => {
       </View>
       <SpacesH height={height.h10} />
       <ProfileTabs />
-      <FloatingActionButton bottom={20} right={20} />
+      <OverlayMenu isVisible={overlayVisible} onClose={toggleOverlay} />
+      <FloatingActionButton onPress={toggleOverlay} bottom={20} right={20} />
     </View>
   );
 };

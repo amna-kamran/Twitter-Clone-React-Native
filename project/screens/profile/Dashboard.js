@@ -8,6 +8,7 @@ import Community from './components/bottom-bar/bottom-bar-screens/Community';
 import Notification from './components/bottom-bar/bottom-bar-screens/Notification';
 import {colors} from '../../themes/Colors';
 import FloatingActionButton from './components/bottom-bar/bottom-bar-screens/components/FloatingActionButton';
+import FloatingMessageButton from './components/bottom-bar/bottom-bar-screens/components/FloatingMessageButton';
 import Message from './components/bottom-bar/bottom-bar-screens/Message';
 
 const Tab = createBottomTabNavigator();
@@ -119,7 +120,7 @@ const Dashboard = () => {
           })}
         />
       </Tab.Navigator>
-      <FloatingActionButton />
+      {isMessage ? <FloatingMessageButton /> : <FloatingActionButton />}
       {console.log(isMessage)}
     </>
   );

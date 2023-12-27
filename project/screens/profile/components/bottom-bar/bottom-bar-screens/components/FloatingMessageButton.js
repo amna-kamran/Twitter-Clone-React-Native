@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, TouchableOpacity, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons'; // You need to install this package
+import Icon from 'react-native-vector-icons/Ionicons';
 import {colors} from '../../../../../../themes/Colors';
 
 const FloatingMessageButton = ({onPress}) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.fab}>
-      <Icon name="mail" size={30} color="#FFF" />
+      <Icon name="mail-outline" size={30} color="#FFF" />
     </TouchableOpacity>
   );
 };

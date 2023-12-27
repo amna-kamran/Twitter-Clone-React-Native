@@ -8,9 +8,12 @@ import {SpacesH, SpacesW, height, width} from '../../utils/Spaces';
 import ProfileTabs from './components/tabs/ProfileTabs';
 import {inter} from '../../utils/Fonts';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {signOut} from '../../provider/AuthProvider';
-
+import {signOut} from '../../services/AuthProvider';
+import {useAuth, useUserProfile} from '../../services/user/User';
+import {UserModel} from '../../models/UserModel';
 const Profile = ({navigation}) => {
+  const user = useAuth();
+  const userProfile = useUserProfile(user ? user.uid : null);
   return (
     <View style={styles.background}>
       <View style={styles.topBar}>
@@ -34,8 +37,8 @@ const Profile = ({navigation}) => {
           </View>
         </View>
         <SpacesH height={height.h10} />
-        <Text style={styles.name}>Amna Kamran</Text>
-        <Text style={styles.username}>@amnakamran</Text>
+        <Text style={styles.name}>{userProfile.username}</Text>
+        <Text style={styles.username}>@{userProfile.username}</Text>
         <SpacesH height={height.h25} />
         <View style={styles.date}>
           <IconFA name="calendar" size={14} color="grey" />

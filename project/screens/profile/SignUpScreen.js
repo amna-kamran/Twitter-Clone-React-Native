@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useState} from 'react';
-import {emailPasswordSignin} from '../../provider/AuthProvider';
+import {emailPasswordSignin} from '../../services/AuthProvider';
 
 const SignUpScreen = () => {
   const [username, setUsername] = useState('');
@@ -15,7 +15,7 @@ const SignUpScreen = () => {
   const [email, setEmail] = useState('');
 
   const onNextPressed = () => {
-    emailPasswordSignin(email, password);
+    emailPasswordSignin(username, email, password);
   };
   return (
     <View style={styles.main}>

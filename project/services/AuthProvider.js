@@ -1,8 +1,13 @@
 import auth from '@react-native-firebase/auth';
-function emailPasswordSignin(email, password, navigation) {
+import {storeUserInformation} from './user/User';
+
+function emailPasswordSignin(username, email, password) {
   auth()
     .createUserWithEmailAndPassword(email, password)
-
+    .then(userCredential => {
+      const user = userCredential.user;
+      storeUserInformation(username, email, user.uid);
+    })
     .catch(error => {
       if (error.code === 'auth/email-already-in-use') {
         console.log('That email address is already in use!');
@@ -31,7 +36,8 @@ function loginEmailPass(email, password, navigation) {
 function signOut() {
   auth()
     .signOut()
-    .then(() => console.log('User signed out!'));
+    .then(() => console.log('User signed out!'))
+    .catch(error => console.error('Error signing out:', error));
 }
 
 export {emailPasswordSignin, signOut, loginEmailPass};

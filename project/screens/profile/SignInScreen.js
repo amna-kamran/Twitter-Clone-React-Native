@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useState} from 'react';
-import {loginEmailPass} from '../../provider/AuthProvider';
+import {loginEmailPass} from '../../services/AuthProvider';
 
 const SignInScreen = ({navigation}) => {
   const [username, setUsername] = useState('');

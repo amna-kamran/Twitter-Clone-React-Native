@@ -24,8 +24,6 @@ export const useUserProfile = userId => {
           .get();
 
         if (!userDoc.empty) {
-          // Assuming userId is unique, so only one document should match
-          const userData = userDoc.docs[0].data();
           setProfile(userData);
         } else {
           console.log(
@@ -56,14 +54,13 @@ export async function storeUserInformation(username, email, uid) {
     const userId = currentUser.uid;
     const usersCollection = firestore().collection('users');
 
-    // Get the current epoch timestamp as the document ID
     const epochTimestamp = new Date().getTime();
     const userDocRef = usersCollection.doc(epochTimestamp.toString());
 
     await userDocRef.set({
       username: username,
       email: email,
-      userId: uid, // Store the actual ID as a field within the document
+      userId: uid,
     });
 
     console.log('User data stored successfully!');

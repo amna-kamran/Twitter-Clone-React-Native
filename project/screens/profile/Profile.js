@@ -14,7 +14,9 @@ const Profile = ({navigation}) => {
   return (
     <View style={styles.background}>
       <View style={styles.topBar}>
-        <IconI name="arrow-back" size={28} color="#fff" />
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <IconI name="arrow-back" size={28} color="#fff" />
+        </TouchableOpacity>
         <View style={styles.iconsRight}>
           <IconF name="search" size={28} color="#fff" />
           <SpacesW width={width.w20} />

@@ -1,44 +1,121 @@
+import React, {useState} from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from './components/bottom-bar-screens/Home';
-import Search from './components/bottom-bar-screens/Search';
-import {StyleSheet, View} from 'react-native';
+import Home from './components/bottom-bar/bottom-bar-screens/Home';
+import Search from './components/bottom-bar/bottom-bar-screens/Search';
+import Community from './components/bottom-bar/bottom-bar-screens/Community';
+import Notification from './components/bottom-bar/bottom-bar-screens/Notification';
 import {colors} from '../../themes/Colors';
+import FloatingActionButton from './components/bottom-bar/bottom-bar-screens/components/FloatingActionButton';
+import FloatingMessageButton from './components/bottom-bar/bottom-bar-screens/components/FloatingMessageButton';
+import Message from './components/bottom-bar/bottom-bar-screens/Message';
+import IconF from 'react-native-vector-icons/Feather';
+
 const Tab = createBottomTabNavigator();
+
 const Dashboard = () => {
+  const [isMessage, setIsMessage] = useState('');
+  const handleTabPress = name => {
+    name == 'message' ? setIsMessage(true) : setIsMessage(false);
+  };
   return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name="home"
-        component={Home}
-        options={{
-          headerLeft: () => {
-            return (
-              <View style={styles.container}>
-                <View style={[styles.profilePicture]} />
-              </View>
-            );
-          },
+    <>
+      <Tab.Navigator
+        screenOptions={{
           title: '',
+          headerShown: false,
+          tabBarActiveTintColor: 'white',
+          tabBarInactiveTintColor: 'gray',
+
           headerStyle: {
             backgroundColor: colors.background,
             elevation: 0,
           },
-        }}
-      />
-      <Tab.Screen name="search" component={Search} />
-    </Tab.Navigator>
+          tabBarStyle: {
+            height: 60,
+            paddingTop: 15,
+            backgroundColor: colors.background,
+          },
+        }}>
+        <Tab.Screen
+          name="home"
+          component={Home}
+          options={{
+            tabBarIcon: ({color, size}) => (
+              <IconF name="home" size={size} color={color} />
+            ),
+          }}
+          listeners={({route}) => ({
+            tabPress: e => {
+              handleTabPress(route.name);
+            },
+          })}
+        />
+        <Tab.Screen
+          name="search"
+          component={Search}
+          options={{
+            tabBarIcon: ({color, size}) => (
+              <IconF name="search" size={size} color={color} />
+            ),
+          }}
+          listeners={({route}) => ({
+            tabPress: e => {
+              handleTabPress(route.name);
+            },
+          })}
+        />
+        <Tab.Screen
+          name="communities"
+          component={Community}
+          options={{
+            tabBarIcon: ({color, size}) => (
+              <IconF name="users" size={size} color={color} />
+            ),
+          }}
+          listeners={({route}) => ({
+            tabPress: e => {
+              handleTabPress(route.name);
+            },
+          })}
+        />
+        <Tab.Screen
+          name="notification"
+          component={Notification}
+          options={{
+            tabBarIcon: ({color, size}) => (
+              <IconF name="bell" size={size} color={color} />
+            ),
+          }}
+          listeners={({route}) => ({
+            tabPress: e => {
+              handleTabPress(route.name);
+            },
+          })}
+        />
+        <Tab.Screen
+          name="message"
+          component={Message}
+          options={{
+            tabBarIcon: ({color, size}) => (
+              <IconF name="mail" size={size} color={color} />
+            ),
+          }}
+          listeners={({route}) => ({
+            tabPress: e => {
+              handleTabPress(route.name);
+            },
+          })}
+        />
+      </Tab.Navigator>
+      {isMessage ? <FloatingMessageButton /> : <FloatingActionButton />}
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 10,
-  },
-  profilePicture: {
-    backgroundColor: 'grey',
-    height: 30,
-    width: 30,
-    borderRadius: 20,
+  icon: {
+    right: 10,
   },
 });
 

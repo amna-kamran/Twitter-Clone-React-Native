@@ -1,5 +1,11 @@
-import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import IconF from 'react-native-vector-icons/Feather';
 import IconE from 'react-native-vector-icons/Entypo';
 import IconI from 'react-native-vector-icons/Ionicons';
@@ -11,16 +17,33 @@ import {inter} from '../../utils/Fonts';
 import {signOut} from '../../services/AuthProvider';
 import {useAuth, useUserProfile} from '../../services/user/User';
 import FloatingActionButton from './components/bottom-bar/bottom-bar-screens/components/FloatingActionButton';
-import {useState} from 'react';
 import OverlayMenu from './components/OverlayMenu';
+
 const Profile = ({navigation}) => {
   const user = useAuth();
   const userProfile = useUserProfile(user ? user.uid : null);
-  console.log(userProfile);
   const [overlayVisible, setOverlayVisible] = useState(false);
+  const [isOverlayMode, setIsOverlayMode] = useState(true);
+
+  const handlePress = () => {
+    if (isOverlayMode) {
+      console.log('Overlay mode pressed');
+      setOverlayVisible(true);
+    } else {
+      navigation.navigate('create-tweet');
+      setIsOverlayMode(false);
+      setOverlayVisible(false);
+    }
+    setIsOverlayMode(!isOverlayMode);
+  };
+
   const toggleOverlay = () => {
     setOverlayVisible(!overlayVisible);
+    setIsOverlayMode(true);
   };
+
+  console.log(overlayVisible, 'visible');
+  console.log(isOverlayMode, 'mode');
   return (
     <View style={styles.background}>
       <View style={styles.topBar}>
@@ -71,7 +94,7 @@ const Profile = ({navigation}) => {
       <SpacesH height={height.h10} />
       <ProfileTabs />
       <OverlayMenu isVisible={overlayVisible} onClose={toggleOverlay} />
-      <FloatingActionButton onPress={toggleOverlay} bottom={20} right={20} />
+      <FloatingActionButton onPress={handlePress} bottom={20} right={20} />
     </View>
   );
 };

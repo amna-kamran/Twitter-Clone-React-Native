@@ -11,6 +11,8 @@ import SignInScreen from '../screens/profile/SignInScreen';
 import SignUpScreen from '../screens/profile/SignUpScreen';
 import auth from '@react-native-firebase/auth';
 import DrawerScreen from '../screens/profile/components/drawer/DrawerScreen';
+import Settings from '../screens/profile/Settings';
+import CreateTweet from '../screens/profile/components/posts/CreateTweet';
 
 const AppNavigator = () => {
   const [initializing, setInitializing] = useState(true);
@@ -65,6 +67,20 @@ const AppNavigator = () => {
                 color: colors.textColor,
               },
               headerTintColor: colors.textColor,
+            }}
+          />
+          <Stack.Screen
+            name="settings"
+            component={Settings}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="create-tweet"
+            component={CreateTweet}
+            options={{
+              headerShown: false,
             }}
           />
         </>

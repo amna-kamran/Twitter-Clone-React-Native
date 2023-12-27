@@ -15,7 +15,7 @@ const DrawerScreen = ({navigation}) => {
       screenOptions={{
         title: '',
         headerRight: () => (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('settings')}>
             <View style={styles.icon}>
               <IconF name="settings" size={22} color={'white'} />
             </View>

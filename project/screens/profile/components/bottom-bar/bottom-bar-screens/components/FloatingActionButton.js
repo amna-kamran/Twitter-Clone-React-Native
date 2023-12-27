@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
+import {TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'; // Ensure this package is installed
 import {colors} from '../../../../../../themes/Colors';
+import {useState} from 'react';
 
 const FloatingActionButton = ({onPress, top, bottom, right, left}) => {
   return (

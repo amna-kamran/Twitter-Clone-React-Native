@@ -1,6 +1,6 @@
 import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
 import {colors} from '../../../../themes/Colors';
-import {SpacesH, SpacesW, width} from '../../../../utils/Spaces';
+import {SpacesH, SpacesW} from '../../../../utils/Spaces';
 import IconE from 'react-native-vector-icons/Entypo';
 import {inter} from '../../../../utils/Fonts';
 

@@ -16,8 +16,12 @@ import ProfileTabs from './components/tabs/ProfileTabs';
 import {inter} from '../../utils/Fonts';
 import {signOut} from '../../services/AuthProvider';
 import {useAuth, useUserProfile} from '../../services/user/User';
-import FloatingActionButton from './components/bottom-bar/bottom-bar-screens/components/FloatingActionButton';
+import FloatingActionButton from './components/floating-action-buttons/components/FloatingActionButton';
 import OverlayMenu from './components/OverlayMenu';
+import {
+  handlePress,
+  toggleOverlay,
+} from './components/floating-action-buttons/components/utils/ButtonUtils';
 
 const Profile = ({navigation}) => {
   const user = useAuth();
@@ -25,25 +29,6 @@ const Profile = ({navigation}) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [isOverlayMode, setIsOverlayMode] = useState(true);
 
-  const handlePress = () => {
-    if (isOverlayMode) {
-      console.log('Overlay mode pressed');
-      setOverlayVisible(true);
-    } else {
-      navigation.navigate('create-tweet');
-      setIsOverlayMode(false);
-      setOverlayVisible(false);
-    }
-    setIsOverlayMode(!isOverlayMode);
-  };
-
-  const toggleOverlay = () => {
-    setOverlayVisible(!overlayVisible);
-    setIsOverlayMode(true);
-  };
-
-  console.log(overlayVisible, 'visible');
-  console.log(isOverlayMode, 'mode');
   return (
     <View style={styles.background}>
       <View style={styles.topBar}>
@@ -93,8 +78,24 @@ const Profile = ({navigation}) => {
       </View>
       <SpacesH height={height.h10} />
       <ProfileTabs />
-      <OverlayMenu isVisible={overlayVisible} onClose={toggleOverlay} />
-      <FloatingActionButton onPress={handlePress} bottom={20} right={20} />
+      <OverlayMenu
+        isVisible={overlayVisible}
+        onClose={() =>
+          toggleOverlay(overlayVisible, setOverlayVisible, setIsOverlayMode)
+        }
+      />
+      <FloatingActionButton
+        onPress={() =>
+          handlePress(
+            isOverlayMode,
+            setOverlayVisible,
+            setIsOverlayMode,
+            navigation,
+          )
+        }
+        bottom={20}
+        right={20}
+      />
     </View>
   );
 };

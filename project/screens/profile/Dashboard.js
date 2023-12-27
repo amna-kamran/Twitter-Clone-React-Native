@@ -6,18 +6,25 @@ import Search from './components/bottom-bar/bottom-bar-screens/Search';
 import Community from './components/bottom-bar/bottom-bar-screens/Community';
 import Notification from './components/bottom-bar/bottom-bar-screens/Notification';
 import {colors} from '../../themes/Colors';
-import FloatingActionButton from './components/bottom-bar/bottom-bar-screens/components/FloatingActionButton';
-import FloatingMessageButton from './components/bottom-bar/bottom-bar-screens/components/FloatingMessageButton';
+import FloatingActionButton from './components/floating-action-buttons/components/FloatingActionButton';
+import FloatingMessageButton from './components/floating-action-buttons/components/FloatingMessageButton';
 import Message from './components/bottom-bar/bottom-bar-screens/Message';
 import IconF from 'react-native-vector-icons/Feather';
-
+import {
+  handlePress,
+  toggleOverlay,
+} from './components/floating-action-buttons/components/utils/ButtonUtils';
+import OverlayMenu from './components/OverlayMenu';
 const Tab = createBottomTabNavigator();
 
-const Dashboard = () => {
+const Dashboard = ({navigation}) => {
   const [isMessage, setIsMessage] = useState('');
   const handleTabPress = name => {
     name == 'message' ? setIsMessage(true) : setIsMessage(false);
   };
+  const [overlayVisible, setOverlayVisible] = useState(false);
+  const [isOverlayMode, setIsOverlayMode] = useState(true);
+
   return (
     <>
       <Tab.Navigator
@@ -108,10 +115,27 @@ const Dashboard = () => {
           })}
         />
       </Tab.Navigator>
+      <OverlayMenu
+        isVisible={overlayVisible}
+        onClose={() =>
+          toggleOverlay(overlayVisible, setOverlayVisible, setIsOverlayMode)
+        }
+      />
       {isMessage ? (
         <FloatingMessageButton />
       ) : (
-        <FloatingActionButton bottom={80} right={20} />
+        <FloatingActionButton
+          onPress={() =>
+            handlePress(
+              isOverlayMode,
+              setOverlayVisible,
+              setIsOverlayMode,
+              navigation,
+            )
+          }
+          bottom={80}
+          right={20}
+        />
       )}
     </>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import IconF from 'react-native-vector-icons/Feather';
@@ -13,6 +13,10 @@ import Message from './components/bottom-bar/bottom-bar-screens/Message';
 const Tab = createBottomTabNavigator();
 
 const Dashboard = () => {
+  const [isMessage, setIsMessage] = useState('');
+  const handleTabPress = name => {
+    name == 'message' ? setIsMessage(true) : setIsMessage(false);
+  };
   return (
     <>
       <Tab.Navigator
@@ -52,6 +56,11 @@ const Dashboard = () => {
               <IconF name="home" size={size} color={color} />
             ),
           }}
+          listeners={({route}) => ({
+            tabPress: e => {
+              handleTabPress(route.name);
+            },
+          })}
         />
         <Tab.Screen
           name="search"
@@ -61,6 +70,11 @@ const Dashboard = () => {
               <IconF name="search" size={size} color={color} />
             ),
           }}
+          listeners={({route}) => ({
+            tabPress: e => {
+              handleTabPress(route.name);
+            },
+          })}
         />
         <Tab.Screen
           name="communities"
@@ -70,6 +84,11 @@ const Dashboard = () => {
               <IconF name="users" size={size} color={color} />
             ),
           }}
+          listeners={({route}) => ({
+            tabPress: e => {
+              handleTabPress(route.name);
+            },
+          })}
         />
         <Tab.Screen
           name="notification"
@@ -79,6 +98,11 @@ const Dashboard = () => {
               <IconF name="bell" size={size} color={color} />
             ),
           }}
+          listeners={({route}) => ({
+            tabPress: e => {
+              handleTabPress(route.name);
+            },
+          })}
         />
         <Tab.Screen
           name="message"
@@ -88,9 +112,15 @@ const Dashboard = () => {
               <IconF name="mail" size={size} color={color} />
             ),
           }}
+          listeners={({route}) => ({
+            tabPress: e => {
+              handleTabPress(route.name);
+            },
+          })}
         />
       </Tab.Navigator>
       <FloatingActionButton />
+      {console.log(isMessage)}
     </>
   );
 };

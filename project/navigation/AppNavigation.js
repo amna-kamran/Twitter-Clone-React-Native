@@ -10,7 +10,7 @@ import PostDisplay from '../screens/profile/components/posts/PostDisplayScreen';
 import SignInScreen from '../screens/profile/SignInScreen';
 import SignUpScreen from '../screens/profile/SignUpScreen';
 import auth from '@react-native-firebase/auth';
-import Dashboard from '../screens/profile/Dashboard';
+import DrawerScreen from '../screens/profile/components/drawer/DrawerScreen';
 
 const AppNavigator = () => {
   const [initializing, setInitializing] = useState(true);
@@ -37,8 +37,8 @@ const AppNavigator = () => {
         // User is logged in
         <>
           <Stack.Screen
-            name="dashboard"
-            component={Dashboard}
+            name="drawer"
+            component={DrawerScreen}
             options={{
               headerShown: false,
               statusBarColor: colors.background,

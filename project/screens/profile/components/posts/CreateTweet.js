@@ -1,9 +1,11 @@
-import {Text, View} from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 
 const CreateTweet = () => {
-  <View>
-    <Text>tweet created</Text>
-  </View>;
+  return (
+    <View>
+      <Text>tweet created</Text>
+    </View>
+  );
 };
 
 export default CreateTweet;

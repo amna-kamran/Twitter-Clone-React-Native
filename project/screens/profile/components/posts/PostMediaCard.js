@@ -7,7 +7,7 @@ import {colors} from '../../../../themes/Colors';
 import {inter} from '../../../../utils/Fonts';
 import {SpacesH, SpacesW, height, width} from '../../../../utils/Spaces';
 
-const PostCardMedia = () => {
+const PostMediaCard = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => console.log('pressed')}>
@@ -115,4 +115,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostCardMedia;
+export default PostMediaCard;

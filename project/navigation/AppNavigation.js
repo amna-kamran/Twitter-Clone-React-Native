@@ -13,6 +13,8 @@ import auth from '@react-native-firebase/auth';
 import DrawerScreen from '../screens/profile/components/drawer/DrawerScreen';
 import Settings from '../screens/profile/Settings';
 import CreateTweet from '../screens/profile/components/posts/CreateTweet';
+import {TouchableOpacity} from 'react-native';
+import IconI from 'react-native-vector-icons/Ionicons';
 
 const AppNavigator = () => {
   const [initializing, setInitializing] = useState(true);
@@ -79,9 +81,40 @@ const AppNavigator = () => {
           <Stack.Screen
             name="create-tweet"
             component={CreateTweet}
-            options={{
-              headerShown: false,
-            }}
+            options={({navigation}) => ({
+              statusBarColor: colors.background,
+              headerStyle: {
+                backgroundColor: colors.background,
+              },
+              headerTitleStyle: {
+                color: colors.textColor,
+              },
+              headerTintColor: colors.textColor,
+              headerLeft: () => (
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <IconI
+                    name="close"
+                    size={25}
+                    color={colors.textColor}
+                    style={{marginLeft: 15}}
+                  />
+                </TouchableOpacity>
+              ),
+              cardStyleInterpolator: ({current, layouts}) => {
+                return {
+                  cardStyle: {
+                    transform: [
+                      {
+                        translateY: current.progress.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [layouts.screen.height, 0],
+                        }),
+                      },
+                    ],
+                  },
+                };
+              },
+            })}
           />
         </>
       ) : (

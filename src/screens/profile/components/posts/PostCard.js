@@ -4,6 +4,7 @@ import IconE from 'react-native-vector-icons/Entypo';
 import {colors} from '../../../../themes/Colors';
 import {inter} from '../../../../utils/Fonts';
 import {SpacesH, SpacesW} from '../../../../utils/Spaces';
+import {deleteTweet} from '../../../../services/TweetProvider';
 
 const PostCard = ({tweet}) => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -14,6 +15,8 @@ const PostCard = ({tweet}) => {
 
   const handleDeleteTweet = () => {
     setModalVisible(false);
+    console.log(tweet.tid);
+    deleteTweet(tweet.tid);
   };
 
   return (

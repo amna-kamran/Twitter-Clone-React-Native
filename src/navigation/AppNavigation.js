@@ -108,7 +108,7 @@ const AppNavigator = () => {
           <Stack.Screen
             name="create-tweet"
             component={CreateTweet}
-            options={({navigation}) => ({
+            options={({navigation, route}) => ({
               title: '',
               statusBarColor: colors.background,
               headerStyle: {
@@ -129,21 +129,23 @@ const AppNavigator = () => {
                   />
                 </TouchableOpacity>
               ),
-              headerRight: () => <HeaderRightButtons />,
-              cardStyleInterpolator: ({current, layouts}) => {
-                return {
-                  cardStyle: {
-                    transform: [
-                      {
-                        translateY: current.progress.interpolate({
-                          inputRange: [0, 1],
-                          outputRange: [layouts.screen.height, 0],
-                        }),
-                      },
-                    ],
-                  },
-                };
-              },
+              headerRight: () => (
+                <HeaderRightButtons
+                  isPostDisabled={route.params?.isTweetEmpty ?? true}
+                />
+              ),
+              cardStyleInterpolator: ({current, layouts}) => ({
+                cardStyle: {
+                  transform: [
+                    {
+                      translateY: current.progress.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [layouts.screen.height, 0],
+                      }),
+                    },
+                  ],
+                },
+              }),
             })}
           />
         </>

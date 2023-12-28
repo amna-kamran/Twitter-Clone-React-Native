@@ -6,8 +6,10 @@ import IconA from 'react-native-vector-icons/AntDesign';
 import {colors} from '../../../../themes/Colors';
 import {inter} from '../../../../utils/Fonts';
 import {SpacesH, SpacesW, height, width} from '../../../../utils/Spaces';
+import {useSelector} from 'react-redux';
 
 const PostMediaCard = () => {
+  const userProfile = useSelector(state => state.user.userProfile);
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => console.log('pressed')}>
@@ -16,9 +18,9 @@ const PostMediaCard = () => {
 
       <View style={styles.textBox}>
         <View style={styles.nameContainer}>
-          <Text style={styles.name}>Amna Kamran</Text>
+          <Text style={styles.name}>{userProfile?.username}</Text>
           <SpacesW width={10} />
-          <Text style={styles.username}>@amnakamran</Text>
+          <Text style={styles.username}>@{userProfile?.username}</Text>
           <Text style={styles.day}>. 2d</Text>
           <SpacesW width={10} />
           <IconE name="dots-three-vertical" size={16} color={'grey'} />

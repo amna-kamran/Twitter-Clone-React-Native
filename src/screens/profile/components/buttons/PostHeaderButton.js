@@ -3,15 +3,25 @@ import {StyleSheet, Text, View} from 'react-native';
 import {colors} from '../../../../themes/Colors';
 import {inter} from '../../../../utils/Fonts';
 
-const PostHeaderButton = ({name}) => {
+const PostHeaderButton = ({name, isDisabled}) => {
   const containerStyle = {
     ...styles.container,
-    backgroundColor: name === 'Post' ? colors.accentColor : colors.background,
+    backgroundColor:
+      isDisabled && name === 'Post'
+        ? '#aaa'
+        : name === 'Post'
+        ? colors.accentColor
+        : colors.background,
   };
 
   const textStyle = {
     ...styles.text,
-    color: name === 'Drafts' ? colors.accentColor : colors.textColor,
+    color:
+      isDisabled && name === 'Post'
+        ? '#888'
+        : name === 'Drafts'
+        ? colors.accentColor
+        : colors.textColor,
   };
 
   return (

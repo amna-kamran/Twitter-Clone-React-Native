@@ -23,9 +23,10 @@ import {
   toggleOverlay,
 } from './components/floating-action-buttons/components/utils/ButtonUtils';
 
+import {useSelector} from 'react-redux';
+
 const Profile = ({navigation}) => {
-  const user = useAuth();
-  const userProfile = useUserProfile(user ? user.uid : null);
+  const userProfile = useSelector(state => state.user.userProfile);
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [isOverlayMode, setIsOverlayMode] = useState(true);
 
@@ -54,8 +55,8 @@ const Profile = ({navigation}) => {
 
         {userProfile ? (
           <>
-            <Text style={styles.name}>{userProfile.username}</Text>
-            <Text style={styles.username}>@{userProfile.username}</Text>
+            <Text style={styles.name}>{userProfile?.username}</Text>
+            <Text style={styles.username}>@{userProfile?.username}</Text>
           </>
         ) : (
           <Text style={styles.loadingText}>Loading profile...</Text>

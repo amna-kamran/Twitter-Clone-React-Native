@@ -1,30 +1,107 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
-  Image,
+  TextInput,
+  ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
-  ScrollView,
 } from 'react-native';
-import {useState} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+const settingsData = [
+  {
+    title: 'Your account',
+    description:
+      'See information about your account, download an archive of your data, or learn about your account deactivation options',
+    iconName: 'account',
+    IconComponent: MaterialCommunityIcons,
+  },
+  {
+    title: 'Security and account access',
+    description:
+      "Manage your account's security and keep track of your account's usage.",
+    iconName: 'lock',
+    IconComponent: AntDesign,
+  },
+  {
+    title: 'Monetization',
+    description:
+      'See how you can make money on X and manage your monetization options.',
+    iconName: 'cash-multiple',
+    IconComponent: MaterialCommunityIcons,
+  },
+  {
+    title: 'Premium',
+    description:
+      'Manage your subscription features including Undo post timing.',
+    iconName: 'alpha-x',
+    IconComponent: MaterialCommunityIcons,
+  },
+  {
+    title: 'Privacy and safety',
+    description: 'Manage what information you see and share on X.',
+    iconName: 'Safety',
+    IconComponent: AntDesign,
+  },
+  {
+    title: 'Notifications',
+    description:
+      'Select the kinds of notifications you get about your activities, interests, and recommendations.',
+    iconName: 'notifications',
+    IconComponent: Ionicons,
+  },
+  {
+    title: 'Accessibility, display, and languages',
+    description: 'Manage how X content is displayed to you.',
+    iconName: 'universal-access',
+    IconComponent: Foundation,
+  },
+  {
+    title: 'Additional resources',
+    description:
+      'Check out other places for helpful information to learn more X products and services',
+    iconName: 'dots-horizontal-circle-outline',
+    IconComponent: MaterialCommunityIcons,
+  },
+];
+
+const SettingItem = ({title, description, iconName, IconComponent}) => (
+  <TouchableOpacity onPress={() => console.log(title)}>
+    <View style={styles.inputContainer}>
+      <IconComponent
+        name={iconName}
+        size={24}
+        color="#FFFFFF"
+        style={styles.icon}
+      />
+      <View style={styles.inputContainer2}>
+        <Text style={styles.settingHeading}>{title}</Text>
+        <Text style={styles.settingContent}>{description}</Text>
+      </View>
+      <SimpleLineIcons
+        name="arrow-right"
+        size={12}
+        color="#FFFFFF"
+        style={styles.arrow}
+      />
+    </View>
+  </TouchableOpacity>
+);
+
 const Settings = () => {
   const [searchText, setSearchText] = useState('');
+
   const handleSearchChange = text => {
     setSearchText(text);
-    console.log('Search text:', text);
   };
 
   return (
     <View style={styles.main}>
-      <Text style={styles.heading1}>Settings</Text>
       <TextInput
         style={styles.searchSettingsInput}
         placeholder="Search Settings"
@@ -33,222 +110,9 @@ const Settings = () => {
         value={searchText}
       />
       <ScrollView>
-        <TouchableOpacity
-          onPress={() => {
-            console.log('your account');
-          }}>
-          <View style={styles.inputContainer}>
-            <MaterialCommunityIcons
-              style={styles.icon}
-              name="account"
-              size={24}
-              color="white"
-            />
-            <View style={styles.inputContainer2}>
-              <Text style={styles.settingHeading}>Your account</Text>
-              <Text style={styles.settingContent}>
-                See information about your account, download an archive of your
-                data, or learn about your account deactivation options
-              </Text>
-            </View>
-            <SimpleLineIcons
-              style={styles.arrow}
-              name="arrow-right"
-              size={12}
-              color="#FFFFFF"
-            />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            console.log('Security and account access');
-          }}>
-          <View style={styles.inputContainer}>
-            <AntDesign
-              style={styles.icon}
-              name="lock"
-              size={24}
-              color="#FFFFFF"
-            />
-            <View style={styles.inputContainer2}>
-              <Text style={styles.settingHeading}>
-                Security and account access
-              </Text>
-              <Text style={styles.settingContent}>
-                Manage your account's security and keep track of your account's
-                usage including apps that you have connected to your account.
-              </Text>
-            </View>
-            <SimpleLineIcons
-              style={styles.arrow}
-              name="arrow-right"
-              size={12}
-              color="#FFFFFF"
-            />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            console.log('Monetization');
-          }}>
-          <View style={styles.inputContainer}>
-            <MaterialCommunityIcons
-              style={styles.icon}
-              name="cash-multiple"
-              size={24}
-              color="#FFFFFF"
-            />
-            <View style={styles.inputContainer2}>
-              <Text style={styles.settingHeading}>Monetization </Text>
-              <Text style={styles.settingContent}>
-                See how you can make money on X and manage your monetization
-                options.
-              </Text>
-            </View>
-            <SimpleLineIcons
-              style={styles.arrow}
-              name="arrow-right"
-              size={12}
-              color="#FFFFFF"
-            />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            console.log('Premium');
-          }}>
-          <View style={styles.inputContainer}>
-            <MaterialCommunityIcons
-              style={styles.icon}
-              name="alpha-x"
-              size={24}
-              color="#FFFFFF"
-            />
-            <View style={styles.inputContainer2}>
-              <Text style={styles.settingHeading}> Premium </Text>
-              <Text style={styles.settingContent}>
-                Manage your subscription features including Undo post timing.{' '}
-              </Text>
-            </View>
-            <SimpleLineIcons
-              style={styles.arrow}
-              name="arrow-right"
-              size={12}
-              color="#FFFFFF"
-            />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            console.log('Privacy and Safety');
-          }}>
-          <View style={styles.inputContainer}>
-            <AntDesign
-              style={styles.icon}
-              name="Safety"
-              size={24}
-              color="#FFFFFF"
-            />
-            <View style={styles.inputContainer2}>
-              <Text style={styles.settingHeading}>Privacy and safety </Text>
-              <Text style={styles.settingContent}>
-                Manage what information you see and share on X.
-              </Text>
-            </View>
-            <SimpleLineIcons
-              style={styles.arrow}
-              name="arrow-right"
-              size={12}
-              color="#FFFFFF"
-            />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            console.log('Notifications');
-          }}>
-          <View style={styles.inputContainer}>
-            <Ionicons
-              style={styles.icon}
-              name="notifications"
-              size={24}
-              color="#FFFFFF"
-            />
-            <View style={styles.inputContainer2}>
-              <Text style={styles.settingHeading}>Notifications</Text>
-              <Text style={styles.settingContent}>
-                Select the kinds of notifications you get about your activities,
-                interests, and recommendations.
-              </Text>
-            </View>
-            <SimpleLineIcons
-              style={styles.arrow}
-              name="arrow-right"
-              size={12}
-              color="#FFFFFF"
-            />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            console.log('Accessibility, display and language');
-          }}>
-          <View style={styles.inputContainer}>
-            <Foundation
-              style={styles.icon}
-              name="universal-access"
-              size={24}
-              color="#FFFFFF"
-            />
-            <View style={styles.inputContainer2}>
-              <Text style={styles.settingHeading}>
-                Accessibility, display, and languages
-              </Text>
-              <Text style={styles.settingContent}>
-                Manage how X content is displayed to you.
-              </Text>
-            </View>
-            <SimpleLineIcons
-              style={styles.arrow}
-              name="arrow-right"
-              size={12}
-              color="#FFFFFF"
-            />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            console.log('Additional resources');
-          }}>
-          <View style={styles.inputContainer}>
-            <MaterialCommunityIcons
-              style={styles.icon}
-              name="dots-horizontal-circle-outline"
-              size={24}
-              color="#FFFFFF"
-            />
-            <View style={styles.inputContainer2}>
-              <Text style={styles.settingHeading}>Additional resources</Text>
-              <Text style={styles.settingContent}>
-                Check out other places for helpful information to learn more X
-                products and services
-              </Text>
-            </View>
-            <SimpleLineIcons
-              style={styles.arrow}
-              name="arrow-right"
-              size={12}
-              color="#FFFFFF"
-            />
-          </View>
-        </TouchableOpacity>
+        {settingsData.map((item, index) => (
+          <SettingItem key={index} {...item} />
+        ))}
       </ScrollView>
     </View>
   );
@@ -318,7 +182,6 @@ const styles = StyleSheet.create({
 
   arrow: {
     flex: 3,
-    length: 16,
     width: 16,
     alignSelf: 'center',
   },

@@ -1,29 +1,66 @@
 import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TextInput, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {useNavigation} from '@react-navigation/native';
+import IconF from 'react-native-vector-icons/Feather';
+
+// Import your screen components
 import Home from './components/bottom-bar/bottom-bar-screens/Home';
 import Search from './components/bottom-bar/bottom-bar-screens/Search';
 import Community from './components/bottom-bar/bottom-bar-screens/Community';
 import Notification from './components/bottom-bar/bottom-bar-screens/Notification';
+import Message from './components/bottom-bar/bottom-bar-screens/Message';
+
 import {colors} from '../../themes/Colors';
 import FloatingActionButton from './components/floating-action-buttons/components/FloatingActionButton';
 import FloatingMessageButton from './components/floating-action-buttons/components/FloatingMessageButton';
-import Message from './components/bottom-bar/bottom-bar-screens/Message';
-import IconF from 'react-native-vector-icons/Feather';
+import OverlayMenu from './components/OverlayMenu';
 import {
   handlePress,
   toggleOverlay,
 } from './components/floating-action-buttons/components/utils/ButtonUtils';
-import OverlayMenu from './components/OverlayMenu';
+
 const Tab = createBottomTabNavigator();
 
-const Dashboard = ({navigation}) => {
-  const [isMessage, setIsMessage] = useState('');
-  const handleTabPress = name => {
-    name == 'message' ? setIsMessage(true) : setIsMessage(false);
-  };
+const Dashboard = () => {
+  const [isMessage, setIsMessage] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [isOverlayMode, setIsOverlayMode] = useState(true);
+
+  const navigation = useNavigation();
+
+  const handleTabPress = name => {
+    setIsMessage(name === 'message');
+
+    let headerTitle = '';
+    switch (name) {
+      case 'home':
+        headerTitle = '';
+        break;
+      case 'search':
+        headerTitle = () => (
+          <TextInput
+            style={styles.search}
+            placeholder="Search Settings"
+            placeholderTextColor="#565D6D"
+          />
+        );
+        break;
+      case 'communities':
+        headerTitle = 'Communities';
+        break;
+      case 'notification':
+        headerTitle = 'Notifications';
+        break;
+      case 'message':
+        headerTitle = 'Messages';
+        break;
+      default:
+        headerTitle = '';
+    }
+
+    navigation.setOptions({headerTitle});
+  };
 
   return (
     <>
@@ -33,11 +70,6 @@ const Dashboard = ({navigation}) => {
           headerShown: false,
           tabBarActiveTintColor: 'white',
           tabBarInactiveTintColor: 'gray',
-
-          headerStyle: {
-            backgroundColor: colors.background,
-            elevation: 0,
-          },
           tabBarStyle: {
             height: 60,
             paddingTop: 15,
@@ -52,9 +84,9 @@ const Dashboard = ({navigation}) => {
               <IconF name="home" size={size} color={color} />
             ),
           }}
-          listeners={({route}) => ({
+          listeners={() => ({
             tabPress: e => {
-              handleTabPress(route.name);
+              handleTabPress('home');
             },
           })}
         />
@@ -66,9 +98,9 @@ const Dashboard = ({navigation}) => {
               <IconF name="search" size={size} color={color} />
             ),
           }}
-          listeners={({route}) => ({
+          listeners={() => ({
             tabPress: e => {
-              handleTabPress(route.name);
+              handleTabPress('search');
             },
           })}
         />
@@ -80,9 +112,9 @@ const Dashboard = ({navigation}) => {
               <IconF name="users" size={size} color={color} />
             ),
           }}
-          listeners={({route}) => ({
+          listeners={() => ({
             tabPress: e => {
-              handleTabPress(route.name);
+              handleTabPress('communities');
             },
           })}
         />
@@ -94,9 +126,9 @@ const Dashboard = ({navigation}) => {
               <IconF name="bell" size={size} color={color} />
             ),
           }}
-          listeners={({route}) => ({
+          listeners={() => ({
             tabPress: e => {
-              handleTabPress(route.name);
+              handleTabPress('notification');
             },
           })}
         />
@@ -108,9 +140,9 @@ const Dashboard = ({navigation}) => {
               <IconF name="mail" size={size} color={color} />
             ),
           }}
-          listeners={({route}) => ({
+          listeners={() => ({
             tabPress: e => {
-              handleTabPress(route.name);
+              handleTabPress('message');
             },
           })}
         />
@@ -149,6 +181,13 @@ const Dashboard = ({navigation}) => {
 const styles = StyleSheet.create({
   icon: {
     right: 10,
+  },
+  search: {
+    backgroundColor: '#202328',
+    height: 40,
+    borderRadius: 21,
+    width: 250,
+    paddingLeft: 20,
   },
 });
 

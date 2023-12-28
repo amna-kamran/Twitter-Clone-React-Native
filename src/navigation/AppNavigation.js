@@ -105,10 +105,22 @@ const AppNavigator = () => {
           <Stack.Screen
             name="settings"
             component={Settings}
-            options={{
-              headerShown: false,
-            }}
+            options={({navigation}) => ({
+              headerStyle: {
+                backgroundColor: colors.background,
+              },
+              elevation: 0,
+              title: 'Settings',
+              headerLeft: () => (
+                <TouchableOpacity
+                  style={{marginLeft: 20}}
+                  onPress={() => navigation.goBack()}>
+                  <IconI name="arrow-back" size={28} color="black" />
+                </TouchableOpacity>
+              ),
+            })}
           />
+
           <Stack.Screen
             name="create-tweet"
             component={CreateTweet}

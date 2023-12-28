@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Modal, View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import IconE from 'react-native-vector-icons/Entypo';
+import IconF from 'react-native-vector-icons/Feather';
+import IconA from 'react-native-vector-icons/AntDesign';
 import {colors} from '../../../../themes/Colors';
 import {inter} from '../../../../utils/Fonts';
 import {SpacesH, SpacesW} from '../../../../utils/Spaces';
@@ -39,7 +41,35 @@ const PostCard = ({tweet}) => {
           </View>
           <Text style={styles.tweet}>{tweet?.text}</Text>
           <SpacesH height={30} />
-          <View style={styles.icons}></View>
+          <View style={styles.icons}>
+            <View style={[styles.iconGroup, {width: 80}]}>
+              <IconF name="message-circle" size={17} color={'grey'} />
+              <SpacesW width={5} />
+              <Text style={styles.iconText}>230k</Text>
+            </View>
+
+            <View style={[styles.iconGroup, {width: 80}]}>
+              <IconA name="retweet" size={19} color={'grey'} />
+              <SpacesW width={5} />
+              <Text style={styles.iconText}>10.5k</Text>
+            </View>
+
+            <View style={[styles.iconGroup, {width: 80}]}>
+              <IconF name="heart" size={17} color={'grey'} />
+              <SpacesW width={5} />
+              <Text style={styles.iconText}>2,300</Text>
+            </View>
+
+            <View style={[styles.iconGroup, {width: 80}]}>
+              <IconF name="bar-chart" size={17} color={'grey'} />
+              <SpacesW width={5} />
+              <Text style={styles.iconText}>230K</Text>
+            </View>
+
+            <View style={[styles.iconGroup, {width: 50}]}>
+              <IconF name="share-2" size={17} color={'grey'} />
+            </View>
+          </View>
         </View>
       </View>
       <Modal
@@ -103,6 +133,12 @@ const styles = StyleSheet.create({
   icons: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  iconText: {
+    fontSize: 12,
+  },
+  iconGroup: {
+    flexDirection: 'row',
   },
   dots: {
     height: 30,

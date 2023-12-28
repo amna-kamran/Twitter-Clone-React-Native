@@ -20,8 +20,10 @@ const PostCard = ({tweet}) => {
           <SpacesW width={10} />
           <Text style={styles.username}>@{tweet?.username}</Text>
           <Text style={styles.day}>. 2d</Text>
-          <SpacesW width={10} />
-          <IconE name="dots-three-vertical" size={16} color={'grey'} />
+          <SpacesW width={180} />
+          <TouchableOpacity style={styles.dots} onPress={null}>
+            <IconE name="dots-three-vertical" size={16} color={'grey'} />
+          </TouchableOpacity>
         </View>
         <Text style={styles.tweet}>{tweet.text}</Text>
         <SpacesH height={30} />
@@ -108,6 +110,12 @@ const styles = StyleSheet.create({
   loadingText: {
     color: colors.grey,
     fontFamily: inter.medium,
+  },
+  dots: {
+    height: 30,
+    width: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

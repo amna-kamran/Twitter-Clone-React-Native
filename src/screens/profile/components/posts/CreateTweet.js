@@ -11,8 +11,9 @@ import {useState, useEffect} from 'react';
 const CreateTweet = ({navigation}) => {
   const [tweetText, setTweetText] = useState('');
   useEffect(() => {
-    navigation.setParams({isTweetEmpty: tweetText === ''});
+    navigation.setParams({tweetText, isTweetEmpty: tweetText === ''});
   }, [tweetText, navigation]);
+
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
@@ -27,7 +28,9 @@ const CreateTweet = ({navigation}) => {
       </View>
 
       <View style={styles.bottomIcons}>
-        <TouchableOpacity></TouchableOpacity>
+        <TouchableOpacity>
+          {/* <Icon name="camera" size={24} color="#fff" /> */}
+        </TouchableOpacity>
       </View>
 
       <View style={styles.footer}>

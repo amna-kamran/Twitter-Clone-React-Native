@@ -13,17 +13,21 @@ import auth from '@react-native-firebase/auth';
 import DrawerScreen from '../screens/profile/components/drawer/DrawerScreen';
 import Settings from '../screens/profile/Settings';
 import CreateTweet from '../screens/profile/components/posts/CreateTweet';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, Keyboard} from 'react-native';
 import IconI from 'react-native-vector-icons/Ionicons';
 import HeaderRightButtons from '../screens/profile/components/posts/HeaderRightButtons';
 import {useDispatch} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import {setUserProfile} from '../redux/actions/userActions';
+import {addTweet} from '../services/TweetProvider';
+import {useSelector} from 'react-redux';
+import {UserModel} from '../models/UserModel';
 
 const AppNavigator = () => {
   const dispatch = useDispatch();
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
+  const userProfile = useSelector(state => state.user.userProfile);
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(async currentUser => {
@@ -120,7 +124,11 @@ const AppNavigator = () => {
               },
               headerTintColor: colors.textColor,
               headerLeft: () => (
-                <TouchableOpacity onPress={() => navigation.goBack()}>
+                <TouchableOpacity
+                  onPress={() => {
+                    Keyboard.dismiss();
+                    navigation.goBack();
+                  }}>
                   <IconI
                     name="close"
                     size={28}
@@ -132,6 +140,15 @@ const AppNavigator = () => {
               headerRight: () => (
                 <HeaderRightButtons
                   isPostDisabled={route.params?.isTweetEmpty ?? true}
+                  onPress={() => {
+                    console.log(route.params.tweetText);
+                    Keyboard.dismiss();
+                    addTweet(
+                      route.params.tweetText,
+                      UserModel.fromJson(userProfile),
+                    );
+                    navigation.goBack();
+                  }}
                 />
               ),
               cardStyleInterpolator: ({current, layouts}) => ({

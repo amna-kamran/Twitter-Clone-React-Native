@@ -7,6 +7,6 @@ export class UserModel {
 
   static fromJson(json) {
     const {username, email, userId} = json;
-    return new User(username, email, userId);
+    return new UserModel(username, email, userId);
   }
 }

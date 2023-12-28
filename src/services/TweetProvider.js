@@ -1,25 +1,37 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import {useAuth} from './User';
-
-const firestore = firebase.firestore();
-
-export const addTweet = async tweetText => {
+import firestore from '@react-native-firebase/firestore';
+import {TweetModel} from '../models/TweetModel';
+export const addTweet = async (tweetText, user) => {
   try {
-    const currentUser = useAuth();
-    const user = useUserProfile(currentUser ? currentUser.uid : null);
     const epochTimeStamp = new Date().getTime().toString();
+    console.log(user);
     const tweetData = {
-      uid: user.uid,
+      uid: user.userId,
       username: user.username,
-      name: user.name,
+      name: user.username,
       text: tweetText,
-      creationTime: firebase.firestore.FieldValue.serverTimestamp(),
+      creationTime: firestore.FieldValue.serverTimestamp(),
     };
-    await firestore.collection('tweets').doc(epochTimeStamp).set(tweetData);
+    await firestore().collection('tweets').doc(epochTimeStamp).set(tweetData);
     console.log('Tweet added with ID:', epochTimeStamp);
   } catch (error) {
     console.error('Error adding tweet:', error);
+    throw error;
+  }
+};
+
+export const getTweets = async () => {
+  try {
+    const querySnapshot = await firestore().collection('tweets').get();
+    const tweets = querySnapshot.docs.map(doc => {
+      const tweetData = {
+        ...doc.data(),
+        tid: doc.id,
+      };
+      return TweetModel.fromJson(tweetData);
+    });
+    return tweets.reverse();
+  } catch (error) {
+    console.error('Error fetching tweets:', error);
     throw error;
   }
 };

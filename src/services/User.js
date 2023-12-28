@@ -52,7 +52,6 @@ export async function storeUserInformation(username, email, uid) {
       return;
     }
 
-    const userId = currentUser.uid;
     const usersCollection = firestore().collection('users');
 
     const epochTimestamp = new Date().getTime();

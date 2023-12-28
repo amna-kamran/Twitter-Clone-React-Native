@@ -15,7 +15,6 @@ import {SpacesH, SpacesW, height, width} from '../../utils/Spaces';
 import ProfileTabs from './components/tabs/ProfileTabs';
 import {inter} from '../../utils/Fonts';
 import {signOut} from '../../services/AuthProvider';
-import {useAuth, useUserProfile} from '../../services/User';
 import FloatingActionButton from './components/floating-action-buttons/components/FloatingActionButton';
 import OverlayMenu from './components/OverlayMenu';
 import {
@@ -84,7 +83,13 @@ const Profile = ({navigation}) => {
         onClose={() =>
           toggleOverlay(overlayVisible, setOverlayVisible, setIsOverlayMode)
         }
+        options={[
+          {label: 'Go Live', onPress: () => console.log('Go Live')},
+          {label: 'Photos', onPress: () => console.log('Photos')},
+          {label: 'Post', onPress: () => console.log('Post')},
+        ]}
       />
+
       <FloatingActionButton
         onPress={() =>
           handlePress(

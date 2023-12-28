@@ -1,8 +1,7 @@
-// OverlayMenu.js
 import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-const OverlayMenu = ({isVisible, onClose}) => {
+const OverlayMenu = ({isVisible, onClose, options}) => {
   if (!isVisible) return null;
 
   return (
@@ -11,9 +10,14 @@ const OverlayMenu = ({isVisible, onClose}) => {
       activeOpacity={1}
       onPress={onClose}>
       <View style={styles.menuContainer}>
-        <Text style={styles.menuItem}>Go Live</Text>
-        <Text style={styles.menuItem}>Photos</Text>
-        <Text style={styles.menuItem}>Post</Text>
+        {options.map((option, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={option.onPress}
+            style={styles.menuItem}>
+            <Text style={styles.menuItemText}>{option.label}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
     </TouchableOpacity>
   );
@@ -37,9 +41,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
   },
   menuItem: {
+    padding: 16,
+  },
+  menuItemText: {
     fontSize: 18,
     color: '#333',
-    padding: 16,
   },
 });
 

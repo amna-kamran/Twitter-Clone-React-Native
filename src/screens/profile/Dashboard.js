@@ -120,6 +120,11 @@ const Dashboard = ({navigation}) => {
         onClose={() =>
           toggleOverlay(overlayVisible, setOverlayVisible, setIsOverlayMode)
         }
+        options={[
+          {label: 'Go Live', onPress: () => console.log('Go Live')},
+          {label: 'Photos', onPress: () => console.log('Photos')},
+          {label: 'Post', onPress: () => console.log('Post')},
+        ]}
       />
       {isMessage ? (
         <FloatingMessageButton />

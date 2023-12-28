@@ -4,7 +4,8 @@ import {SpacesH, SpacesW} from '../../utils/Spaces';
 import IconE from 'react-native-vector-icons/Entypo';
 import {inter} from '../../utils/Fonts';
 
-const PostDisplay = () => {
+const PostDisplay = ({route}) => {
+  const {tweet} = route.params;
   return (
     <View style={styles.container}>
       <View style={styles.infoContainer}>
@@ -13,15 +14,15 @@ const PostDisplay = () => {
         </TouchableOpacity>
         <SpacesW width={15} />
         <View>
-          <Text style={styles.name}>Amna Kamran</Text>
-          <Text style={styles.username}>@amnakamran</Text>
+          <Text style={styles.name}>{tweet.username}</Text>
+          <Text style={styles.username}>@{tweet.username}</Text>
         </View>
         <SpacesW width={190} />
         <IconE name="dots-three-vertical" size={16} color={'grey'} />
       </View>
       <SpacesH height={10} />
       <View style={styles.postInfo}>
-        <Text style={styles.postText}>Heyyy tune in 23rd dec</Text>
+        <Text style={styles.postText}>{tweet.text}</Text>
         <SpacesH height={10} />
         <View style={styles.image}></View>
       </View>

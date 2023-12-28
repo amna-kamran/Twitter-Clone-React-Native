@@ -6,12 +6,8 @@ import IconA from 'react-native-vector-icons/AntDesign';
 import {colors} from '../../../../themes/Colors';
 import {inter} from '../../../../utils/Fonts';
 import {SpacesH, SpacesW} from '../../../../utils/Spaces';
-import {useAuth, useUserProfile} from '../../../../services/User';
 
-const PostCard = () => {
-  const user = useAuth();
-  const userProfile = useUserProfile(user ? user.uid : null);
-
+const PostCard = ({tweet}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => console.log('pressed')}>
@@ -20,20 +16,16 @@ const PostCard = () => {
 
       <View style={styles.textBox}>
         <View style={styles.nameContainer}>
-          {userProfile ? (
-            <>
-              <Text style={styles.name}>{userProfile.username}</Text>
-              <SpacesW width={10} />
-              <Text style={styles.username}>@{userProfile.username}</Text>
-            </>
-          ) : (
-            <Text style={styles.loadingText}>Loading...</Text>
-          )}
-          <Text style={styles.day}>. 2d</Text>
+          <Text style={styles.name}>{tweet?.username}</Text>
           <SpacesW width={10} />
-          <IconE name="dots-three-vertical" size={16} color={'grey'} />
+          <Text style={styles.username}>@{tweet?.username}</Text>
+          <Text style={styles.day}>. 2d</Text>
+          <SpacesW width={180} />
+          <TouchableOpacity style={styles.dots} onPress={null}>
+            <IconE name="dots-three-vertical" size={16} color={'grey'} />
+          </TouchableOpacity>
         </View>
-        <Text style={styles.tweet}>My first tweet</Text>
+        <Text style={styles.tweet}>{tweet.text}</Text>
         <SpacesH height={30} />
         <View style={styles.icons}>
           <View style={[styles.iconGroup, {width: 80}]}>
@@ -118,6 +110,12 @@ const styles = StyleSheet.create({
   loadingText: {
     color: colors.grey,
     fontFamily: inter.medium,
+  },
+  dots: {
+    height: 30,
+    width: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

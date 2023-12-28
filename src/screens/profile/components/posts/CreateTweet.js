@@ -6,8 +6,14 @@ import {
   TextInput,
 } from 'react-native';
 import {colors} from '../../../../themes/Colors';
+import {useState, useEffect} from 'react';
 
-const CreateTweet = () => {
+const CreateTweet = ({navigation}) => {
+  const [tweetText, setTweetText] = useState('');
+  useEffect(() => {
+    navigation.setParams({tweetText, isTweetEmpty: tweetText === ''});
+  }, [tweetText, navigation]);
+
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
@@ -17,6 +23,7 @@ const CreateTweet = () => {
           multiline
           autoFocus={true}
           style={styles.input}
+          onChangeText={text => setTweetText(text)}
         />
       </View>
 

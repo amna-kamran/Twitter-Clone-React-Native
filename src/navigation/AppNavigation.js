@@ -13,24 +13,51 @@ import auth from '@react-native-firebase/auth';
 import DrawerScreen from '../screens/profile/components/drawer/DrawerScreen';
 import Settings from '../screens/profile/Settings';
 import CreateTweet from '../screens/profile/components/posts/CreateTweet';
-import {TouchableOpacity, View, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity, Keyboard} from 'react-native';
 import IconI from 'react-native-vector-icons/Ionicons';
-import PostButton from '../screens/profile/components/buttons/PostHeaderButton';
-import PostHeaderButton from '../screens/profile/components/buttons/PostHeaderButton';
-import {SpacesW} from '../utils/Spaces';
 import HeaderRightButtons from '../screens/profile/components/posts/HeaderRightButtons';
+import {useDispatch} from 'react-redux';
+import firestore from '@react-native-firebase/firestore';
+import {setUserProfile} from '../redux/actions/userActions';
+import {addTweet} from '../services/TweetProvider';
+import {useSelector} from 'react-redux';
+import {UserModel} from '../models/UserModel';
 
 const AppNavigator = () => {
+  const dispatch = useDispatch();
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
+  const userProfile = useSelector(state => state.user.userProfile);
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(newUser => {
-      setUser(newUser);
-      if (initializing) setInitializing(false);
+    const subscriber = auth().onAuthStateChanged(async currentUser => {
+      setUser(currentUser);
+      if (currentUser) {
+        // User is logged in
+        try {
+          const userDoc = await firestore()
+            .collection('users')
+            .where('userId', '==', currentUser.uid)
+            .get();
+
+          if (!userDoc.empty) {
+            const userProfile = userDoc.docs[0].data();
+            dispatch(setUserProfile(userProfile));
+          } else {
+            console.log('User document not found for userId:', currentUser.uid);
+          }
+        } catch (error) {
+          console.error('Error getting user profile:', error);
+        }
+      } else {
+        // User is logged out
+        dispatch(clearUserProfile());
+      }
+      setInitializing(false);
     });
+
     return subscriber; // unsubscribe on unmount
-  }, [initializing]);
+  }, [dispatch]);
 
   if (initializing) return null;
 
@@ -85,7 +112,7 @@ const AppNavigator = () => {
           <Stack.Screen
             name="create-tweet"
             component={CreateTweet}
-            options={({navigation}) => ({
+            options={({navigation, route}) => ({
               title: '',
               statusBarColor: colors.background,
               headerStyle: {
@@ -97,7 +124,11 @@ const AppNavigator = () => {
               },
               headerTintColor: colors.textColor,
               headerLeft: () => (
-                <TouchableOpacity onPress={() => navigation.goBack()}>
+                <TouchableOpacity
+                  onPress={() => {
+                    Keyboard.dismiss();
+                    navigation.goBack();
+                  }}>
                   <IconI
                     name="close"
                     size={28}
@@ -106,21 +137,32 @@ const AppNavigator = () => {
                   />
                 </TouchableOpacity>
               ),
-              headerRight: () => <HeaderRightButtons />,
-              cardStyleInterpolator: ({current, layouts}) => {
-                return {
-                  cardStyle: {
-                    transform: [
-                      {
-                        translateY: current.progress.interpolate({
-                          inputRange: [0, 1],
-                          outputRange: [layouts.screen.height, 0],
-                        }),
-                      },
-                    ],
-                  },
-                };
-              },
+              headerRight: () => (
+                <HeaderRightButtons
+                  isPostDisabled={route.params?.isTweetEmpty ?? true}
+                  onPress={() => {
+                    console.log(route.params.tweetText);
+                    Keyboard.dismiss();
+                    addTweet(
+                      route.params.tweetText,
+                      UserModel.fromJson(userProfile),
+                    );
+                    navigation.goBack();
+                  }}
+                />
+              ),
+              cardStyleInterpolator: ({current, layouts}) => ({
+                cardStyle: {
+                  transform: [
+                    {
+                      translateY: current.progress.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [layouts.screen.height, 0],
+                      }),
+                    },
+                  ],
+                },
+              }),
             })}
           />
         </>

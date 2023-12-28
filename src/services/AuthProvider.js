@@ -1,5 +1,5 @@
 import auth from '@react-native-firebase/auth';
-import {storeUserInformation} from './user/User';
+import {storeUserInformation} from './User';
 
 function emailPasswordSignin(username, email, password) {
   auth()

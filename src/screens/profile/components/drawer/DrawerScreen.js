@@ -40,6 +40,7 @@ const DrawerScreen = ({navigation}) => {
           drawerIcon: () => (
             <IconI name="person-outline" size={22} color={colors.textColor} />
           ),
+          headerShown: false,
         }}
       />
     </Drawer.Navigator>

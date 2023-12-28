@@ -6,15 +6,19 @@ import {
 } from '@react-navigation/stack';
 import Profile from '../screens/profile/Profile';
 import {colors} from '../themes/Colors';
-import PostDisplay from '../screens/profile/components/posts/PostDisplayScreen';
+import PostDisplay from '../screens/profile/PostDisplayScreen';
 import SignInScreen from '../screens/profile/SignInScreen';
 import SignUpScreen from '../screens/profile/SignUpScreen';
 import auth from '@react-native-firebase/auth';
 import DrawerScreen from '../screens/profile/components/drawer/DrawerScreen';
 import Settings from '../screens/profile/Settings';
 import CreateTweet from '../screens/profile/components/posts/CreateTweet';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View, Text, StyleSheet} from 'react-native';
 import IconI from 'react-native-vector-icons/Ionicons';
+import PostButton from '../screens/profile/components/buttons/PostHeaderButton';
+import PostHeaderButton from '../screens/profile/components/buttons/PostHeaderButton';
+import {SpacesW} from '../utils/Spaces';
+import HeaderRightButtons from '../screens/profile/components/posts/HeaderRightButtons';
 
 const AppNavigator = () => {
   const [initializing, setInitializing] = useState(true);
@@ -82,9 +86,11 @@ const AppNavigator = () => {
             name="create-tweet"
             component={CreateTweet}
             options={({navigation}) => ({
+              title: '',
               statusBarColor: colors.background,
               headerStyle: {
                 backgroundColor: colors.background,
+                elevation: 0,
               },
               headerTitleStyle: {
                 color: colors.textColor,
@@ -94,12 +100,13 @@ const AppNavigator = () => {
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                   <IconI
                     name="close"
-                    size={25}
+                    size={28}
                     color={colors.textColor}
                     style={{marginLeft: 15}}
                   />
                 </TouchableOpacity>
               ),
+              headerRight: () => <HeaderRightButtons />,
               cardStyleInterpolator: ({current, layouts}) => {
                 return {
                   cardStyle: {

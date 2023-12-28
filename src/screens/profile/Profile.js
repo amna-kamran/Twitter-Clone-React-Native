@@ -15,7 +15,7 @@ import {SpacesH, SpacesW, height, width} from '../../utils/Spaces';
 import ProfileTabs from './components/tabs/ProfileTabs';
 import {inter} from '../../utils/Fonts';
 import {signOut} from '../../services/AuthProvider';
-import {useAuth, useUserProfile} from '../../services/user/User';
+import {useAuth, useUserProfile} from '../../services/User';
 import FloatingActionButton from './components/floating-action-buttons/components/FloatingActionButton';
 import OverlayMenu from './components/OverlayMenu';
 import {

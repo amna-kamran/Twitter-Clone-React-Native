@@ -6,7 +6,7 @@ import IconA from 'react-native-vector-icons/AntDesign';
 import {colors} from '../../../../themes/Colors';
 import {inter} from '../../../../utils/Fonts';
 import {SpacesH, SpacesW} from '../../../../utils/Spaces';
-import {useAuth, useUserProfile} from '../../../../services/user/User';
+import {useAuth, useUserProfile} from '../../../../services/User';
 
 const PostCard = () => {
   const user = useAuth();

@@ -1,29 +1,78 @@
 import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TextInput, Image, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {useNavigation} from '@react-navigation/native';
+import IconF from 'react-native-vector-icons/Feather';
+
 import Home from './components/bottom-bar/bottom-bar-screens/Home';
 import Search from './components/bottom-bar/bottom-bar-screens/Search';
 import Community from './components/bottom-bar/bottom-bar-screens/Community';
 import Notification from './components/bottom-bar/bottom-bar-screens/Notification';
+
 import {colors} from '../../themes/Colors';
 import FloatingActionButton from './components/floating-action-buttons/components/FloatingActionButton';
 import FloatingMessageButton from './components/floating-action-buttons/components/FloatingMessageButton';
-import Message from './components/bottom-bar/bottom-bar-screens/Message';
-import IconF from 'react-native-vector-icons/Feather';
+import OverlayMenu from './components/OverlayMenu';
 import {
   handlePress,
   toggleOverlay,
 } from './components/floating-action-buttons/components/utils/ButtonUtils';
-import OverlayMenu from './components/OverlayMenu';
+import MessageScreen from './components/bottom-bar/bottom-bar-screens/Message';
+
 const Tab = createBottomTabNavigator();
 
-const Dashboard = ({navigation}) => {
-  const [isMessage, setIsMessage] = useState('');
-  const handleTabPress = name => {
-    name == 'message' ? setIsMessage(true) : setIsMessage(false);
-  };
+const Dashboard = () => {
+  const [isMessage, setIsMessage] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [isOverlayMode, setIsOverlayMode] = useState(true);
+
+  const navigation = useNavigation();
+
+  const handleTabPress = name => {
+    setIsMessage(name === 'message');
+
+    let headerTitle = '';
+    switch (name) {
+      case 'home':
+        headerTitle = () => (
+          <View style={styles.logoContainer}>
+            <Image
+              source={require('../../../assets/logo-white.png')}
+              style={styles.logo}
+            />
+          </View>
+        );
+        break;
+      case 'search':
+        headerTitle = () => (
+          <TextInput
+            style={styles.search}
+            placeholder="Search Settings"
+            placeholderTextColor="#565D6D"
+          />
+        );
+        break;
+      case 'communities':
+        headerTitle = 'Communities';
+        break;
+      case 'notification':
+        headerTitle = 'Notifications';
+        break;
+      case 'message':
+        headerTitle = () => (
+          <TextInput
+            style={styles.search}
+            placeholder="Search Messages"
+            placeholderTextColor="#565D6D"
+          />
+        );
+        break;
+      default:
+        headerTitle = '';
+    }
+
+    navigation.setOptions({headerTitle});
+  };
 
   return (
     <>
@@ -33,11 +82,6 @@ const Dashboard = ({navigation}) => {
           headerShown: false,
           tabBarActiveTintColor: 'white',
           tabBarInactiveTintColor: 'gray',
-
-          headerStyle: {
-            backgroundColor: colors.background,
-            elevation: 0,
-          },
           tabBarStyle: {
             height: 60,
             paddingTop: 15,
@@ -52,9 +96,9 @@ const Dashboard = ({navigation}) => {
               <IconF name="home" size={size} color={color} />
             ),
           }}
-          listeners={({route}) => ({
+          listeners={() => ({
             tabPress: e => {
-              handleTabPress(route.name);
+              handleTabPress('home');
             },
           })}
         />
@@ -66,9 +110,9 @@ const Dashboard = ({navigation}) => {
               <IconF name="search" size={size} color={color} />
             ),
           }}
-          listeners={({route}) => ({
+          listeners={() => ({
             tabPress: e => {
-              handleTabPress(route.name);
+              handleTabPress('search');
             },
           })}
         />
@@ -80,9 +124,9 @@ const Dashboard = ({navigation}) => {
               <IconF name="users" size={size} color={color} />
             ),
           }}
-          listeners={({route}) => ({
+          listeners={() => ({
             tabPress: e => {
-              handleTabPress(route.name);
+              handleTabPress('communities');
             },
           })}
         />
@@ -94,23 +138,23 @@ const Dashboard = ({navigation}) => {
               <IconF name="bell" size={size} color={color} />
             ),
           }}
-          listeners={({route}) => ({
+          listeners={() => ({
             tabPress: e => {
-              handleTabPress(route.name);
+              handleTabPress('notification');
             },
           })}
         />
         <Tab.Screen
           name="message"
-          component={Message}
+          component={MessageScreen}
           options={{
             tabBarIcon: ({color, size}) => (
               <IconF name="mail" size={size} color={color} />
             ),
           }}
-          listeners={({route}) => ({
+          listeners={() => ({
             tabPress: e => {
-              handleTabPress(route.name);
+              handleTabPress('message');
             },
           })}
         />
@@ -120,6 +164,11 @@ const Dashboard = ({navigation}) => {
         onClose={() =>
           toggleOverlay(overlayVisible, setOverlayVisible, setIsOverlayMode)
         }
+        options={[
+          {label: 'Go Live', onPress: () => console.log('Go Live')},
+          {label: 'Photos', onPress: () => console.log('Photos')},
+          {label: 'Post', onPress: () => console.log('Post')},
+        ]}
       />
       {isMessage ? (
         <FloatingMessageButton />
@@ -144,6 +193,22 @@ const Dashboard = ({navigation}) => {
 const styles = StyleSheet.create({
   icon: {
     right: 10,
+  },
+  search: {
+    backgroundColor: '#202328',
+    height: 40,
+    borderRadius: 21,
+    width: 250,
+    paddingLeft: 20,
+  },
+  logo: {
+    height: 30,
+    width: 30,
+  },
+  logoContainer: {
+    width: 250,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

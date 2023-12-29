@@ -22,6 +22,8 @@ import {setUserProfile} from '../redux/actions/userActions';
 import {addTweet} from '../services/TweetProvider';
 import {useSelector} from 'react-redux';
 import {UserModel} from '../models/UserModel';
+import DraftsScreen from '../screens/profile/components/posts/DraftScreen';
+import ChatScreen from '../screens/profile/components/bottom-bar/ChatScreen';
 
 const AppNavigator = () => {
   const dispatch = useDispatch();
@@ -50,8 +52,6 @@ const AppNavigator = () => {
           console.error('Error getting user profile:', error);
         }
       } else {
-        // User is logged out
-        dispatch(clearUserProfile());
       }
       setInitializing(false);
     });
@@ -105,10 +105,17 @@ const AppNavigator = () => {
           <Stack.Screen
             name="settings"
             component={Settings}
-            options={{
-              headerShown: false,
-            }}
+            options={({navigation}) => ({
+              headerStyle: {
+                backgroundColor: colors.background,
+              },
+
+              headerTintColor: '#fff',
+              elevation: 0,
+              title: 'Settings',
+            })}
           />
+
           <Stack.Screen
             name="create-tweet"
             component={CreateTweet}
@@ -140,6 +147,7 @@ const AppNavigator = () => {
               headerRight: () => (
                 <HeaderRightButtons
                   isPostDisabled={route.params?.isTweetEmpty ?? true}
+                  navigation={navigation}
                   onPress={() => {
                     console.log(route.params.tweetText);
                     Keyboard.dismiss();
@@ -164,6 +172,25 @@ const AppNavigator = () => {
                 },
               }),
             })}
+          />
+          <Stack.Screen
+            name="drafts"
+            component={DraftsScreen}
+            options={{
+              title: 'Drafts',
+              headerTintColor: 'white',
+            }}
+          />
+          <Stack.Screen
+            name="chat-screen"
+            component={ChatScreen}
+            options={{
+              title: 'Messages',
+              headerStyle: {
+                backgroundColor: colors.background,
+              },
+              headerTintColor: '#fff',
+            }}
           />
         </>
       ) : (

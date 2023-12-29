@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import {storeUserInformation} from './User';
-
+import {clearDrafts} from './AsyncStorage';
 function emailPasswordSignin(username, email, password) {
   auth()
     .createUserWithEmailAndPassword(email, password)
@@ -36,7 +36,10 @@ function loginEmailPass(email, password, navigation) {
 function signOut() {
   auth()
     .signOut()
-    .then(() => console.log('User signed out!'))
+    .then(async () => {
+      console.log('User signed out!');
+      await clearDrafts();
+    })
     .catch(error => console.error('Error signing out:', error));
 }
 

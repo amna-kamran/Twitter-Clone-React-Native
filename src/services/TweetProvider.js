@@ -1,5 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import {TweetModel} from '../models/TweetModel';
+
 export const addTweet = async (tweetText, user) => {
   try {
     const epochTimeStamp = new Date().getTime().toString();
@@ -38,7 +39,7 @@ export const getTweets = async () => {
 
 export const deleteTweet = async tweetId => {
   try {
-    await firestore.collection('tweets').doc(tweetId).delete();
+    await firestore().collection('tweets').doc(tweetId).delete();
     console.log('Tweet deleted with ID:', tweetId);
   } catch (error) {
     console.error('Error deleting tweet:', error);

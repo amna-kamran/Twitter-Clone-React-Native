@@ -3,10 +3,10 @@ import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import PostHeaderButton from '../buttons/PostHeaderButton';
 import {SpacesW} from '../../../../utils/Spaces';
 
-const HeaderRightButtons = ({isPostDisabled, onPress}) => {
+const HeaderRightButtons = ({isPostDisabled, onPress, navigation}) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => console.log('drafts')}>
+      <TouchableOpacity onPress={() => navigation.navigate('drafts')}>
         <PostHeaderButton name={'Drafts'} />
       </TouchableOpacity>
       <SpacesW width={15} />

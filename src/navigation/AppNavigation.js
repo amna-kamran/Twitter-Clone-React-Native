@@ -22,6 +22,7 @@ import {setUserProfile} from '../redux/actions/userActions';
 import {addTweet} from '../services/TweetProvider';
 import {useSelector} from 'react-redux';
 import {UserModel} from '../models/UserModel';
+import DraftsScreen from '../screens/profile/components/posts/DraftScreen';
 
 const AppNavigator = () => {
   const dispatch = useDispatch();
@@ -152,6 +153,7 @@ const AppNavigator = () => {
               headerRight: () => (
                 <HeaderRightButtons
                   isPostDisabled={route.params?.isTweetEmpty ?? true}
+                  navigation={navigation}
                   onPress={() => {
                     console.log(route.params.tweetText);
                     Keyboard.dismiss();
@@ -177,6 +179,7 @@ const AppNavigator = () => {
               }),
             })}
           />
+          <Stack.Screen name="drafts" component={DraftsScreen} />
         </>
       ) : (
         // No user is logged in

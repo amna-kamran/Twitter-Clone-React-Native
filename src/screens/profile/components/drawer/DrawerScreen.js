@@ -6,11 +6,13 @@ import {
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import IconF from 'react-native-vector-icons/Feather';
 import IconI from 'react-native-vector-icons/Ionicons';
+import IconM from 'react-native-vector-icons/MaterialIcons';
 import Dashboard from '../../Dashboard';
 import Profile from '../../Profile';
 import {colors} from '../../../../themes/Colors';
 import {inter} from '../../../../utils/Fonts';
 import {SpacesH, SpacesW} from '../../../../utils/Spaces';
+import {signOut} from '../../../../services/AuthProvider';
 
 const Drawer = createDrawerNavigator();
 const drawerItems = [
@@ -60,12 +62,14 @@ function CustomDrawerContent(props) {
           <SpacesH height={30} />
         </View>
       ))}
-
-      {/* Add other drawer items here */}
-
-      <View style={styles.footerContainer}>
-        {/* Your footer content here */}
-      </View>
+      <SpacesH height={150} />
+      <TouchableOpacity onPress={() => signOut()}>
+        <View style={styles.footerContainer}>
+          <Text style={styles.footText}>Log Out</Text>
+          <SpacesW width={20} />
+          <IconM name="logout" size={18} color={'#8B0000'} />
+        </View>
+      </TouchableOpacity>
     </DrawerContentScrollView>
   );
 }
@@ -150,7 +154,18 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   footerContainer: {
-    // Your footer styles
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.borderColor,
+    marginLeft: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: 100,
+  },
+  footText: {
+    fontSize: 14,
+    fontFamily: inter.bold,
+    color: '#8B0000',
   },
   icon: {
     marginRight: 10,

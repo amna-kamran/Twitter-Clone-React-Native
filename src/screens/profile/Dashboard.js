@@ -53,7 +53,13 @@ const Dashboard = () => {
         headerTitle = 'Notifications';
         break;
       case 'message':
-        headerTitle = 'Messages';
+        headerTitle = () => (
+          <TextInput
+            style={styles.search}
+            placeholder="Search Messages"
+            placeholderTextColor="#565D6D"
+          />
+        );
         break;
       default:
         headerTitle = '';

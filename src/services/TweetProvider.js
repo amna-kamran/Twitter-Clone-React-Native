@@ -1,5 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import {TweetModel} from '../models/TweetModel';
+
 export const addTweet = async (tweetText, user) => {
   try {
     const epochTimeStamp = new Date().getTime().toString();

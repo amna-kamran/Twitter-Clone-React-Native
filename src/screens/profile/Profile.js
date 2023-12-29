@@ -1,11 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import IconF from 'react-native-vector-icons/Feather';
 import IconE from 'react-native-vector-icons/Entypo';
 import IconI from 'react-native-vector-icons/Ionicons';
@@ -14,7 +8,6 @@ import {colors} from '../../themes/Colors';
 import {SpacesH, SpacesW, height, width} from '../../utils/Spaces';
 import ProfileTabs from './components/tabs/ProfileTabs';
 import {inter} from '../../utils/Fonts';
-import {signOut} from '../../services/AuthProvider';
 import FloatingActionButton from './components/floating-action-buttons/components/FloatingActionButton';
 import OverlayMenu from './components/OverlayMenu';
 import {
@@ -45,7 +38,7 @@ const Profile = ({navigation}) => {
         <View style={styles.profileheader}>
           <View style={styles.profilePicture} />
           <View style={styles.editButton}>
-            <TouchableOpacity onPress={() => signOut()}>
+            <TouchableOpacity onPress={null}>
               <Text style={styles.editButtonText}>Edit Profile</Text>
             </TouchableOpacity>
           </View>

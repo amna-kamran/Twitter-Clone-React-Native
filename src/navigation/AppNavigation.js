@@ -23,6 +23,7 @@ import {addTweet} from '../services/TweetProvider';
 import {useSelector} from 'react-redux';
 import {UserModel} from '../models/UserModel';
 import DraftsScreen from '../screens/profile/components/posts/DraftScreen';
+import EditProfileScreen from '../screens/profile/components/EditProfile';
 
 const AppNavigator = () => {
   const dispatch = useDispatch();
@@ -51,8 +52,6 @@ const AppNavigator = () => {
           console.error('Error getting user profile:', error);
         }
       } else {
-        // User is logged out
-        dispatch(clearUserProfile());
       }
       setInitializing(false);
     });

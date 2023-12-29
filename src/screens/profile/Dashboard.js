@@ -9,7 +9,6 @@ import Home from './components/bottom-bar/bottom-bar-screens/Home';
 import Search from './components/bottom-bar/bottom-bar-screens/Search';
 import Community from './components/bottom-bar/bottom-bar-screens/Community';
 import Notification from './components/bottom-bar/bottom-bar-screens/Notification';
-import Message from './components/bottom-bar/bottom-bar-screens/Message';
 
 import {colors} from '../../themes/Colors';
 import FloatingActionButton from './components/floating-action-buttons/components/FloatingActionButton';
@@ -19,6 +18,7 @@ import {
   handlePress,
   toggleOverlay,
 } from './components/floating-action-buttons/components/utils/ButtonUtils';
+import MessageScreen from './components/bottom-bar/bottom-bar-screens/Message';
 
 const Tab = createBottomTabNavigator();
 
@@ -140,7 +140,7 @@ const Dashboard = () => {
         />
         <Tab.Screen
           name="message"
-          component={Message}
+          component={MessageScreen}
           options={{
             tabBarIcon: ({color, size}) => (
               <IconF name="mail" size={size} color={color} />

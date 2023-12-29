@@ -23,7 +23,7 @@ import {addTweet} from '../services/TweetProvider';
 import {useSelector} from 'react-redux';
 import {UserModel} from '../models/UserModel';
 import DraftsScreen from '../screens/profile/components/posts/DraftScreen';
-import EditProfileScreen from '../screens/profile/components/EditProfile';
+import ChatScreen from '../screens/profile/components/bottom-bar/ChatScreen';
 
 const AppNavigator = () => {
   const dispatch = useDispatch();
@@ -183,6 +183,13 @@ const AppNavigator = () => {
             component={DraftsScreen}
             options={{
               title: 'Drafts',
+            }}
+          />
+          <Stack.Screen
+            name="chat-screen"
+            component={ChatScreen}
+            options={{
+              title: 'Messages',
             }}
           />
         </>

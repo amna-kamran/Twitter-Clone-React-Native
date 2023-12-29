@@ -54,7 +54,6 @@ const CreateTweet = ({navigation, route}) => {
     }, [tweetText]),
   );
 
-  // Function to save the current text as a draft
   const handleSaveDraft = async () => {
     try {
       const existingDrafts =

@@ -25,15 +25,18 @@ const CreateTweet = ({navigation, route}) => {
     await AsyncStorage.setItem('drafts', JSON.stringify(drafts));
   };
 
-  // Load the draft text when the component mounts
+  useEffect(() => {
+    navigation.setParams({tweetText, isTweetEmpty: tweetText === ''});
+  }, [tweetText, navigation]);
+
   useEffect(() => {
     if (route.params?.draftText && typeof route.params.index === 'number') {
       setTweetText(route.params.draftText);
+      navigation.setParams({draftText: ''});
       removeDraft(route.params.index);
     }
   }, [route.params]);
 
-  // Handle back button press
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
@@ -82,7 +85,11 @@ const CreateTweet = ({navigation, route}) => {
           multiline
           autoFocus={true}
           style={styles.input}
-          onChangeText={text => setTweetText(text)}
+          onChangeText={text => {
+            console.log(text);
+            setTweetText(text);
+            console.log(tweetText);
+          }}
           value={tweetText}
         />
       </View>

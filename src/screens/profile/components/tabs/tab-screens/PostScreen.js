@@ -4,6 +4,7 @@ import {colors} from '../../../../../themes/Colors';
 import PostCard from '../../posts/PostCard';
 import firestore from '@react-native-firebase/firestore';
 import {TweetModel} from '../../../../../models/TweetModel';
+import {View} from 'react-native';
 
 const PostScreen = ({navigation}) => {
   const [tweets, setTweets] = useState([]);
@@ -33,12 +34,15 @@ const PostScreen = ({navigation}) => {
 
   const renderPostCard = ({item}) => {
     return (
-      <TouchableOpacity
-        activeOpacity={0.7}
-        delayPressIn={50}
-        onPress={() => navigation.navigate('post', {tweet: item})}>
-        <PostCard tweet={item} />
-      </TouchableOpacity>
+      <>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          delayPressIn={50}
+          onPress={() => navigation.navigate('post', {tweet: item})}>
+          <PostCard tweet={item} />
+        </TouchableOpacity>
+        <View style={{height: 1, backgroundColor: colors.textColor}} />
+      </>
     );
   };
 

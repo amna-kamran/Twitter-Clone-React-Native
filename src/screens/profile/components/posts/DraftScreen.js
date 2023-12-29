@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, TouchableOpacity} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {colors} from '../../../../themes/Colors';
+import {SpacesH} from '../../../../utils/Spaces';
 
 const DraftsScreen = ({navigation}) => {
   const [drafts, setDrafts] = useState([]);
@@ -24,13 +26,32 @@ const DraftsScreen = ({navigation}) => {
         data={drafts}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item, index}) => (
-          <TouchableOpacity onPress={() => handleDraftPress(item, index)}>
-            <Text>{item}</Text>
-          </TouchableOpacity>
+          <View style={styles.cardContainer}>
+            <View style={styles.card}>
+              <TouchableOpacity onPress={() => handleDraftPress(item, index)}>
+                <Text>{item}</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.divider} />
+          </View>
         )}
       />
     </View>
   );
 };
-
+const styles = StyleSheet.create({
+  card: {
+    flex: 1,
+    backgroundColor: colors.background,
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+  },
+  cardContainer: {
+    height: 70,
+  },
+  divider: {
+    height: 1,
+    color: 'white',
+  },
+});
 export default DraftsScreen;

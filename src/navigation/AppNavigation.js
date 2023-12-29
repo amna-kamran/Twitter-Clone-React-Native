@@ -179,7 +179,13 @@ const AppNavigator = () => {
               }),
             })}
           />
-          <Stack.Screen name="drafts" component={DraftsScreen} />
+          <Stack.Screen
+            name="drafts"
+            component={DraftsScreen}
+            options={{
+              title: 'Drafts',
+            }}
+          />
         </>
       ) : (
         // No user is logged in

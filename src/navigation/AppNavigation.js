@@ -109,15 +109,10 @@ const AppNavigator = () => {
               headerStyle: {
                 backgroundColor: colors.background,
               },
+
+              headerTintColor: '#fff',
               elevation: 0,
               title: 'Settings',
-              headerLeft: () => (
-                <TouchableOpacity
-                  style={{marginLeft: 20}}
-                  onPress={() => navigation.goBack()}>
-                  <IconI name="arrow-back" size={28} color="black" />
-                </TouchableOpacity>
-              ),
             })}
           />
 
@@ -190,6 +185,10 @@ const AppNavigator = () => {
             component={ChatScreen}
             options={{
               title: 'Messages',
+              headerStyle: {
+                backgroundColor: colors.background,
+              },
+              headerTintColor: '#fff',
             }}
           />
         </>

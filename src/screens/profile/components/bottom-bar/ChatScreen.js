@@ -6,10 +6,9 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-
+import {colors} from '../../../../themes/Colors';
 // Define your color theme somewhere in your project
-const colors = {
-  background: '#1a1a1a',
+const colorsMessage = {
   userMessage: '#0a81ab',
   partnerMessage: '#162447',
   text: '#ffffff',
@@ -56,11 +55,11 @@ const styles = StyleSheet.create({
     maxWidth: '70%',
   },
   userMessage: {
-    backgroundColor: colors.userMessage,
+    backgroundColor: colorsMessage.userMessage,
     alignSelf: 'flex-end',
   },
   partnerMessage: {
-    backgroundColor: colors.partnerMessage,
+    backgroundColor: colorsMessage.partnerMessage,
     alignSelf: 'flex-start',
   },
   messageText: {

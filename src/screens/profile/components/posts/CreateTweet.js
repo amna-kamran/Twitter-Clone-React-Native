@@ -93,18 +93,6 @@ const CreateTweet = ({navigation, route}) => {
         />
       </View>
 
-      <View style={styles.bottomIcons}>
-        <TouchableOpacity>
-          {/* <Icon name="camera" size={24} color="#fff" /> */}
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.footer}>
-        <TouchableOpacity>
-          <Text style={styles.footerText}>Everyone can reply</Text>
-        </TouchableOpacity>
-      </View>
-
       <Modal
         animationType="slide"
         transparent={true}
@@ -151,6 +139,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     padding: 12,
+    flexDirection: 'row',
   },
   footer: {
     padding: 12,

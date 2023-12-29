@@ -178,6 +178,7 @@ const AppNavigator = () => {
             component={DraftsScreen}
             options={{
               title: 'Drafts',
+              headerTintColor: 'white',
             }}
           />
           <Stack.Screen

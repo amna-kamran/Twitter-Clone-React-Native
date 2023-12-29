@@ -1,8 +1,7 @@
-import {Text, View} from 'react-native';
 import PostScreen from '../../../tabs/tab-screens/PostScreen';
 
-const ForYou = () => {
-  return <PostScreen />;
+const ForYou = ({navigation}) => {
+  return <PostScreen navigation={navigation} />;
 };
 
 export default ForYou;

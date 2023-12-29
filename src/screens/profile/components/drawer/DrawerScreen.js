@@ -87,6 +87,7 @@ const DrawerScreen = ({navigation}) => {
             </View>
           </TouchableOpacity>
         ),
+        headerTintColor: 'white',
         headerStyle: {
           backgroundColor: colors.background,
           elevation: 0,
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
     borderRadius: 40,
-    backgroundColor: '#ccc', // Temporary background color
+    backgroundColor: 'grey',
     marginBottom: 10,
   },
   profileName: {

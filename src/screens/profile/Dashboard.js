@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
+import {StyleSheet, TextInput, Image, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useNavigation} from '@react-navigation/native';
 import IconF from 'react-native-vector-icons/Feather';
 
-// Import your screen components
 import Home from './components/bottom-bar/bottom-bar-screens/Home';
 import Search from './components/bottom-bar/bottom-bar-screens/Search';
 import Community from './components/bottom-bar/bottom-bar-screens/Community';
@@ -35,7 +34,14 @@ const Dashboard = () => {
     let headerTitle = '';
     switch (name) {
       case 'home':
-        headerTitle = '';
+        headerTitle = () => (
+          <View style={styles.logoContainer}>
+            <Image
+              source={require('../../../assets/logo-white.png')}
+              style={styles.logo}
+            />
+          </View>
+        );
         break;
       case 'search':
         headerTitle = () => (
@@ -194,6 +200,15 @@ const styles = StyleSheet.create({
     borderRadius: 21,
     width: 250,
     paddingLeft: 20,
+  },
+  logo: {
+    height: 30,
+    width: 30,
+  },
+  logoContainer: {
+    width: 250,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

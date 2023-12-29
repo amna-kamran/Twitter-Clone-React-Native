@@ -42,6 +42,28 @@ const Search = () => {
           </View>
         </View>
       </ScrollView>
+
+      <Text style={styles.heading}>Videos for you</Text>
+      <Text style={styles.content}>
+        Checkout these popular and trending videos for you
+      </Text>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.videoItem}>
+          <Text style={styles.videoText}>Video 1</Text>
+        </View>
+        <View style={styles.videoItem}>
+          <Text style={styles.videoText}>Video 2</Text>
+        </View>
+        <View style={styles.videoItem}>
+          <Text style={styles.videoText}>Video 3</Text>
+        </View>
+        <View style={styles.videoItem}>
+          <Text style={styles.videoText}>Video 4</Text>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -92,6 +114,28 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#FFFFFF',
     marginTop: 5,
+  },
+  scrollContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 25,
+    marginTop: 10,
+    height: 120,
+  },
+
+  videoItem: {
+    marginRight: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 120,
+    height: 120,
+    backgroundColor: 'lightgray',
+    borderRadius: 12,
+  },
+
+  videoText: {
+    fontSize: 16,
+    color: '#FFFFFF',
   },
 });
 

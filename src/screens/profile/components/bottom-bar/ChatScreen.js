@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     color: colors.text,
     borderRadius: 20,
     padding: 10,
-    marginTop: 'auto', // Pushes the input to the bottom
+    marginTop: 'auto',
   },
 });
 

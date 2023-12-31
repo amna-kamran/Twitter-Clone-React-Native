@@ -13,22 +13,24 @@ import {colors} from '../../../../themes/Colors';
 import {inter} from '../../../../utils/Fonts';
 import {SpacesH, SpacesW} from '../../../../utils/Spaces';
 import {signOut} from '../../../../services/AuthProvider';
-
+import {useSelector} from 'react-redux';
 const Drawer = createDrawerNavigator();
+
 const drawerItems = [
   {label: 'Profile', icon: 'person-outline', screen: 'profile'},
-  {label: 'Premium', icon: 'award-outline', screen: 'profile'},
+  {label: 'Premium', icon: 'person-outline', screen: 'profile'},
   {label: 'Bookmarks', icon: 'bookmark-outline', screen: 'profile'},
   {label: 'Monetisation', icon: 'cash-outline', screen: 'profile'},
 ];
 
 function CustomDrawerContent(props) {
+  const userProfile = useSelector(state => state.user.userProfile);
   return (
     <DrawerContentScrollView {...props} style={styles.drawerContent}>
       <View style={styles.profileContainer}>
         <View style={styles.profilePicture} />
-        <Text style={styles.profileName}>Amna Kamran</Text>
-        <Text style={styles.profileHandle}>@amnakamran</Text>
+        <Text style={styles.profileName}>{userProfile?.username}</Text>
+        <Text style={styles.profileHandle}>@{userProfile?.username}</Text>
 
         <View style={styles.statsContainer}>
           <Text style={styles.stats}>
@@ -51,9 +53,8 @@ function CustomDrawerContent(props) {
       </View>
 
       {drawerItems.map((item, index) => (
-        <View style={styles.optionsContainer}>
+        <View key={index} style={styles.optionsContainer}>
           <TouchableOpacity
-            key={index}
             style={styles.drawerItem}
             onPress={() => props.navigation.navigate(item.screen)}>
             <IconI name={item.icon} size={22} color={colors.textColor} />

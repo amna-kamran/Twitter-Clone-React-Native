@@ -5,14 +5,16 @@ import PostCard from '../../posts/PostCard';
 import firestore from '@react-native-firebase/firestore';
 import {TweetModel} from '../../../../../models/TweetModel';
 import {View} from 'react-native';
+import {useSelector} from 'react-redux';
 
 const PostScreen = ({navigation}) => {
   const [tweets, setTweets] = useState([]);
+  const userProfile = useSelector(state => state.user.userProfile);
 
   useEffect(() => {
     const unsubscribe = firestore()
       .collection('tweets')
-      .orderBy('creationTime', 'desc')
+      .where('uid', '==', userProfile.userId)
       .onSnapshot(
         querySnapshot => {
           const fetchedTweets = querySnapshot.docs.map(doc => {
@@ -22,14 +24,14 @@ const PostScreen = ({navigation}) => {
             };
             return TweetModel.fromJson(tweetData);
           });
-          setTweets(fetchedTweets);
+          setTweets(fetchedTweets.reverse());
         },
         error => {
           console.error('Error fetching real-time tweets:', error);
         },
       );
 
-    return () => unsubscribe(); // Clean up the subscription on unmount
+    return () => unsubscribe();
   }, []);
 
   const renderPostCard = ({item}) => {

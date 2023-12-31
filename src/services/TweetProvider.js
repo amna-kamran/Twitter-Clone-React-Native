@@ -23,6 +23,7 @@ export const addTweet = async (tweetText, user) => {
 export const getTweets = async () => {
   try {
     const querySnapshot = await firestore().collection('tweets').get();
+
     const tweets = querySnapshot.docs.map(doc => {
       const tweetData = {
         ...doc.data(),
@@ -30,7 +31,8 @@ export const getTweets = async () => {
       };
       return TweetModel.fromJson(tweetData);
     });
-    return tweets.reverse();
+
+    return tweets.reverse(); // Assuming you want the latest tweets first
   } catch (error) {
     console.error('Error fetching tweets:', error);
     throw error;

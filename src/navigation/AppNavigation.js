@@ -66,6 +66,7 @@ const AppNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
+        headerTintColor: colors.textColor,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}>
       {user ? (
@@ -76,7 +77,6 @@ const AppNavigator = () => {
             component={DrawerScreen}
             options={{
               headerShown: false,
-              statusBarColor: colors.background,
             }}
           />
           <Stack.Screen
@@ -84,7 +84,6 @@ const AppNavigator = () => {
             component={Profile}
             options={{
               headerShown: false,
-              statusBarColor: colors.background,
             }}
           />
           <Stack.Screen
@@ -92,14 +91,12 @@ const AppNavigator = () => {
             component={PostDisplay}
             options={{
               title: 'Post',
-              statusBarColor: colors.background,
               headerStyle: {
                 backgroundColor: colors.background,
               },
               headerTitleStyle: {
                 color: colors.textColor,
               },
-              headerTintColor: colors.textColor,
             }}
           />
           <Stack.Screen
@@ -110,7 +107,6 @@ const AppNavigator = () => {
                 backgroundColor: colors.background,
               },
 
-              headerTintColor: '#fff',
               elevation: 0,
               title: 'Settings',
             })}
@@ -121,7 +117,6 @@ const AppNavigator = () => {
             component={CreateTweet}
             options={({navigation, route}) => ({
               title: '',
-              statusBarColor: colors.background,
               headerStyle: {
                 backgroundColor: colors.background,
                 elevation: 0,
@@ -129,7 +124,6 @@ const AppNavigator = () => {
               headerTitleStyle: {
                 color: colors.textColor,
               },
-              headerTintColor: colors.textColor,
               headerLeft: () => (
                 <TouchableOpacity
                   onPress={() => {
@@ -178,7 +172,6 @@ const AppNavigator = () => {
             component={DraftsScreen}
             options={{
               title: 'Drafts',
-              headerTintColor: 'white',
             }}
           />
           <Stack.Screen
@@ -189,7 +182,6 @@ const AppNavigator = () => {
               headerStyle: {
                 backgroundColor: colors.background,
               },
-              headerTintColor: '#fff',
             }}
           />
         </>
@@ -200,7 +192,6 @@ const AppNavigator = () => {
             name="signin"
             component={SignInScreen}
             options={{
-              statusBarColor: colors.background,
               headerShown: false,
             }}
           />
@@ -208,7 +199,6 @@ const AppNavigator = () => {
             name="signup"
             component={SignUpScreen}
             options={{
-              statusBarColor: colors.background,
               headerShown: false,
             }}
           />

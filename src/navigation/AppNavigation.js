@@ -18,7 +18,7 @@ import IconI from 'react-native-vector-icons/Ionicons';
 import HeaderRightButtons from '../screens/profile/components/posts/HeaderRightButtons';
 import {useDispatch} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
-import {setUserProfile} from '../redux/actions/userActions';
+import {ClearUser, setUserProfile} from '../redux/actions/userActions';
 import {addTweet} from '../services/TweetProvider';
 import {useSelector} from 'react-redux';
 import {UserModel} from '../models/UserModel';
@@ -35,7 +35,6 @@ const AppNavigator = () => {
     const subscriber = auth().onAuthStateChanged(async currentUser => {
       setUser(currentUser);
       if (currentUser) {
-        // User is logged in
         try {
           const userDoc = await firestore()
             .collection('users')
@@ -51,12 +50,11 @@ const AppNavigator = () => {
         } catch (error) {
           console.error('Error getting user profile:', error);
         }
-      } else {
       }
       setInitializing(false);
     });
 
-    return subscriber; // unsubscribe on unmount
+    return subscriber;
   }, [dispatch]);
 
   if (initializing) return null;

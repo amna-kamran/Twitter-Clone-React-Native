@@ -9,6 +9,8 @@ const userReducer = (state = initialState, action) => {
         ...state,
         userProfile: action.payload,
       };
+    case 'CLEAR_USER_PROFILE':
+      return {...state, userProfile: null};
     default:
       return state;
   }
